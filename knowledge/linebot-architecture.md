@@ -92,3 +92,22 @@ cloudflared tunnel --url http://localhost:8000 &
 ### Phase C（次回予定）
 - JAN復活 → ローカルLLMで外部脳参照
 - パターンにヒットしない質問への自然言語応答
+
+## 全Phase完了（2026-02-18）
+### 最終構成
+- Layer 0: faq_matcher.py（218パターン）→ 即答 $0 ✅
+- Layer 1: 予約フロー（Wix A2A API）→ 即答 $0 ✅
+- Layer 2: hs_reply_state.py（offers.csv）→ 即答 $0 ✅
+- Layer 3: jan_client.py（JAN 4Bモデル CPU推論）→ 7〜22秒 電気代のみ ✅
+- Layer 4: フォールバック「スタッフに引き継ぎ」 ✅
+### インフラ
+- ngrok固定URL: https://nettie-mannerless-delilah.ngrok-free.dev
+- LINE Webhook: https://nettie-mannerless-delilah.ngrok-free.dev/callback
+- LaunchAgent: com.hsbuilding.linebot.plist（iMac再起動で自動復帰）
+- run_hsbot_ngrok.sh: uvicorn + ngrok + caffeinate 一括管理
+### 月額コスト: ¥0（電気代除く）
+### 今後の拡張候補
+- パターン追加（218→500）で Layer 3 呼び出し頻度をさらに削減
+- JAN起動の自動化（LaunchAgentまたはrun_hsbot_ngrok.shに組込）
+- 資金確保後 Claude API 移行（Layer 3 置換）
+- VPS/クラウド移行（iMac依存脱却）
