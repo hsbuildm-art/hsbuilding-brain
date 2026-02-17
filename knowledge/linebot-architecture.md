@@ -128,3 +128,17 @@ cloudflared tunnel --url http://localhost:8000 &
 2. JAN自動起動のLaunchAgent化
 3. Claude API移行（資金確保後）
 4. VPS/クラウド移行（iMac依存脱却）
+
+## JAN自動起動完了（2026-02-18）
+### LaunchAgents一覧（iMac再起動で全て自動復帰確認済み）
+- com.hsbuilding.linebot.plist → uvicorn + ngrok + caffeinate
+- com.hsbuilding.jan.plist → llama-server（ポート1337、4Bモデル）
+### iMac起動後の自動プロセス
+1. llama-server（JAN LLM）→ ポート1337
+2. uvicorn（LINEボット）→ ポート8000
+3. ngrok（固定ドメイン）→ nettie-mannerless-delilah.ngrok-free.dev
+4. caffeinate（スリープ防止）
+### リモート管理
+- Tailscale SSH: ssh miyakeyuki@100.123.135.48
+- ログ確認: tail -f ~/hs_a2a/logs/uvicorn.log
+- JAN確認: curl -s http://127.0.0.1:1337/v1/models -H "Authorization: Bearer jan-local"
