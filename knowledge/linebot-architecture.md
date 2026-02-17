@@ -7,7 +7,7 @@
 LINEユーザー → LINE Platform → Cloudflareトンネル → iMac port 8000 → FastAPI
 
 処理レイヤー:
-- Layer 0: faq_matcher.py + faq_patterns.json（166パターン）即答【コスト$0】
+- Layer 0: faq_matcher.py + faq_patterns.json（218パターン）即答【コスト$0】
 - Layer 1: 予約フロー（Wix A2A API空き確認→仮予約→決済URL）
 - Layer 2: hs_reply_state.py + offers.csv（プラン候補提示）
 - Layer 3: フォールバック「スタッフに引き継ぎ」→ 将来JAN接続予定
@@ -25,7 +25,7 @@ LINEユーザー → LINE Platform → Cloudflareトンネル → iMac port 8000
 
 - line_bot_server.py: メイン制御（FastAPI/LINE Webhook）
 - faq_matcher.py: パターンマッチエンジン（Layer 0）
-- faq_patterns.json: 166パターンの質問・回答データ
+- faq_patterns.json: 218パターンの質問・回答データ
 - hs_reply_state.py: 予約ステートマシン（Layer 2）
 - offers.csv: 全プラン情報（施設×時間×価格×予約URL）
 - .env: LINE API / Wix API キー
@@ -43,7 +43,7 @@ LINEユーザー → LINE Platform → Cloudflareトンネル → iMac port 8000
 - macOS: Sequoia 15.7.3
 - Python: 3.9（.venv）
 
-## パターンマッチ カテゴリ（166パターン）
+## パターンマッチ カテゴリ（218パターン）
 
 - 料金: 30件（各施設×各時間）
 - 設備: 25件（Wi-Fi・電源・モニター・防音等）
