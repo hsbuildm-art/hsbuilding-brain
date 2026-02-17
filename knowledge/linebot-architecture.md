@@ -111,3 +111,20 @@ cloudflared tunnel --url http://localhost:8000 &
 - JAN起動の自動化（LaunchAgentまたはrun_hsbot_ngrok.shに組込）
 - 資金確保後 Claude API 移行（Layer 3 置換）
 - VPS/クラウド移行（iMac依存脱却）
+
+## 最終確認完了（2026-02-18）
+### リモートアクセス
+- Tailscale導入: iMac(100.123.135.48) / MacBook Air(100.87.13.36)
+- SSH接続: ssh miyakeyuki@100.123.135.48
+- アカウント: hsbuild.m@gmail.com
+### 動作確認済み機能
+- HS予約コマンド（コワーキング/会議室/個室ブース）✅
+- パターンマッチ応答（218パターン）✅
+- JAN LLM フォールバック応答 ✅
+- ngrok固定URL + 自動起動 ✅
+- Tailscale SSH リモート管理 ✅
+### 今後の拡張ロードマップ
+1. パターン追加（218→500）
+2. JAN自動起動のLaunchAgent化
+3. Claude API移行（資金確保後）
+4. VPS/クラウド移行（iMac依存脱却）
