@@ -74,3 +74,21 @@ cloudflared tunnel --url http://localhost:8000 &
 - Layer 0-2: 完全無料
 - Layer 3（将来JAN）: 電気代のみ
 - 将来Claude API移行時: 従量課金
+
+## 更新履歴（2026-02-18）
+
+### Phase A完了
+- faq_patterns.json: 218パターン
+- faq_matcher.py: スコアリング型パターンマッチエンジン
+- line_bot_server.pyに Layer 0 として統合済み
+
+### Phase B完了
+- ngrok固定ドメイン: nettie-mannerless-delilah.ngrok-free.dev
+- LINE Webhook URL: https://nettie-mannerless-delilah.ngrok-free.dev/callback
+- run_hsbot_ngrok.sh: uvicorn + ngrok + caffeinate 一括起動
+- LaunchAgent登録済み: com.hsbuilding.linebot.plist（iMac再起動時自動起動）
+- Cloudflareトンネルは廃止 → ngrokに完全移行
+
+### Phase C（次回予定）
+- JAN復活 → ローカルLLMで外部脳参照
+- パターンにヒットしない質問への自然言語応答
