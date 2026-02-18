@@ -1,0 +1,61 @@
+{
+  "article_id": "2026-02-18_nara-virtual-office-cheapest",
+  "version": "1.0",
+  "status": "draft_review",
+  "character": "erika",
+  "target_keywords": {
+    "primary": "奈良 バーチャルオフィス",
+    "secondary": [
+      "奈良 バーチャルオフィス 法人登記",
+      "奈良 バーチャルオフィス 安い",
+      "大和西大寺 バーチャルオフィス",
+      "奈良 法人登記 住所"
+    ]
+  },
+  "seo_checklist": {
+    "title_contains_kw": true,
+    "title_length": 42,
+    "meta_description_length": 78,
+    "h2_contains_sub_kw": true,
+    "faq_structured_data": true,
+    "internal_links": [
+      "https://www.hsworking.com/virtual-office",
+      "https://www.hsworking.com/erika-asahina",
+      "https://www.hsworking.com/coworking",
+      "https://www.hsworking.com/workbooth"
+    ],
+    "cta_with_coupon": true,
+    "author_profile": true,
+    "aio_optimized": true
+  },
+  "image_requests": [
+    {
+      "position": "eyecatch",
+      "character": "erika",
+      "scene": "business_office",
+      "description": "エリカがオフィスで微笑みながらノートPCを操作、背景にHSビルのロゴが薄く見える",
+      "size": "1200x630"
+    },
+    {
+      "position": "section_comparison",
+      "character": "erika",
+      "scene": "explaining",
+      "description": "エリカがホワイトボードの前で比較表を指差している",
+      "size": "800x450"
+    },
+    {
+      "position": "section_ai_staff",
+      "character": "erika_tsubasa",
+      "scene": "consultation",
+      "description": "エリカとツバサがPCを挟んで経営相談をしているシーン",
+      "size": "800x450"
+    }
+  ],
+  "distribution_plan": {
+    "wix_blog": "https://www.hsworking.com/blog",
+    "note": "要約版 + hsworking.comへの誘導",
+    "instagram": "アイキャッチ画像 + キャプション",
+    "linkedin": "ビジネス向けリライト",
+    "line": "新記事通知"
+  }
+}
