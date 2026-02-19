@@ -142,3 +142,50 @@ cloudflared tunnel --url http://localhost:8000 &
 - Tailscale SSH: ssh miyakeyuki@100.123.135.48
 - ログ確認: tail -f ~/hs_a2a/logs/uvicorn.log
 - JAN確認: curl -s http://127.0.0.1:1337/v1/models -H "Authorization: Bearer jan-local"
+
+## GAS統合ステータス通知 移行完了（2026-02-19）
+
+### 変更概要
+- iMac cron（remind_status.py 1日2回 13:00/18:00）→ **廃止**
+- GAS（Google Apps Script 1日1回 11:00）→ **稼働開始**
+- 月間LINE Push通数: 60通 → **30通に半減**
+
+### 廃止した仕組み
+- iMac crontab 2行をコメントアウト済み
+#0 13 * * * cd ~/hs_a2a && .venv/bin/python remind_status.py >> logs/remind.log 2>&1 #0 18 * * * cd ~/hs_a2a && .venv/bin/python remind_status.py >> logs/remind.log 2>&1
+
+- remind_status.py 自体は ~/hs_a2a/ に残存（ロールバック可能）
+
+### 新しい仕組み（GAS）
+- GASプロジェクト名: HS会員管理
+- スプレッドシート: HS_会員管理
+- ID: 1WU77-jS_RcYtpZsUqILejcidlvFCrc5KkSKh61_AQR4
+- シート「入金管理」: 会員名/プラン/月額/支払方法/次回支払日/入金済み/メール
+- GASトリガー: morningStatus() → 毎日11:00（時間ベース）
+- 通知内容:
+1. 室内状況（a2a_live_status から取得）
+2. 入金リマインド（スプレッドシートから取得）
+- LINE認証: .env と同じ LINE_CHANNEL_ACCESS_TOKEN / ADMIN_LINE_USER_ID を使用
+
+### 役割分担（確定）
+| 担当 | 役割 | Push通数 |
+|------|------|----------|
+| GAS | 毎朝11:00 定型ステータス通知（室内データ＋入金リマインド） | 月30通 |
+| iMac | ユーザーからの会話応答（予約・FAQ・LLM）※Reply | 月0通 |
+| iMac | 管理者コマンド応答（hs:○人 等）※Reply | 月0通 |
+
+### iMacの現在の役割（2026-02-19時点）
+- 定期プッシュ通知: **担当しない**（GASに移管済み）
+- LINEボット会話応答: 担当（Layer 0〜4）
+- JAN LLMフォールバック: 担当（Layer 3）
+- iMac停止時の影響: 会話応答のみ停止、朝の通知はGASが独立して送信
+
+### コスト変更
+- GAS: ¥0（Google無料枠内）
+- LINE Push: 月30通（無料枠200通の15%消費）
+- 残り枠: 170通（会員向け通知に利用可能）
+
+### 今後の拡張予定
+- 本日の予約情報を朝の通知に追加（Wix todayBookings HTTP Function追加後）
+- 会員向け郵便物通知（Push枠から消費、運用フロー確定後）
+- 請求書自動生成・メール送付（GAS + Google Docs テンプレート）
