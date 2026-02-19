@@ -189,3 +189,36 @@ cloudflared tunnel --url http://localhost:8000 &
 - 本日の予約情報を朝の通知に追加（Wix todayBookings HTTP Function追加後）
 - 会員向け郵便物通知（Push枠から消費、運用フロー確定後）
 - 請求書自動生成・メール送付（GAS + Google Docs テンプレート）
+
+## Googleカレンダー予約通知 追加完了（2026-02-19）
+
+### 変更概要
+- GAS morningStatus() にGoogleカレンダー連携を追加
+- 毎朝11:00の統合通知に「本日の予約一覧」を含める機能を実装・稼働確認済み
+
+### 技術詳細
+- カレンダー: hsbuild.m@gmail.com のデフォルトカレンダー（サブカレンダー同期済み）
+- 取得方法: CalendarApp.getDefaultCalendar().getEvents() で当日0:00〜23:59のイベントを取得
+- Wix Bookings API は不使用（全予約がGoogleカレンダーに集約される運用のため）
+- 予約ソース: Wix Bookings / スペースマーケット / インスタベース 等 → 全てGoogleカレンダーに転記する運用
+
+### 朝の統合通知メッセージ構成（確定版）
+1. 【🏢 室内状況】← Wix a2a_live_status
+2. 【📅 本日の予約】← Googleカレンダー ★NEW
+3. 【💰 入金リマインド】← スプレッドシート「入金管理」
+
+### GASプロジェクト構成（確定版）
+- プロジェクト名: HS会員管理
+- スプレッドシートID: 1WU77-jS_RcYtpZsUqILejcidlvFCrc5KkSKh61_AQR4
+- 関数一覧:
+  - morningStatus(): メイン（毎朝11:00トリガー）
+  - getLiveStatus(): Wix a2a_live_status 取得
+  - getTodayBookings(): Googleカレンダー当日予約取得
+  - getPaymentAlerts(): スプレッドシート入金チェック
+  - sendToLINE(): LINE Messaging API Push送信
+- トリガー: morningStatus → 毎日11:00（時間ベース）
+- LINE認証: iMac .env と同じ LINE_CHANNEL_ACCESS_TOKEN / ADMIN_LINE_USER_ID
+
+### 月間コスト変更なし
+- GAS + Googleカレンダー: ¥0
+- LINE Push: 月30通（変更なし）
