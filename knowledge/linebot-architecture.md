@@ -115,3 +115,83 @@ ngrok固定ドメイン: nettie-mannerless-delilah.ngrok-free.dev
 
 ### 月額コスト
 ¥0（電気代除く）
+
+---
+
+## Phase 1: 週次学習レポート自動化（2026-02-20 実装）
+
+### 概要
+マルモとエリカ両方のログを統合分析し、週次でLINE通知するシステム。月額¥0。
+
+### アーキテクチャ
+[毎週月曜 9:00] LaunchAgent (com.hsbuilding.weekly-report) → weekly_report.py → マルモ未対応ログ読込 (~/hs_a2a/logs/unhandled.jsonl) → エリカ会話ログ読込 (~/erika-line-bot/chat_logs/*.jsonl) → JAN 4B (localhost:1337) でカテゴリ分類・要約生成 → JSONレポート保存 (~/hs_a2a/logs/reports/weekly_YYYY-MM-DD.json) → LINE通知文保存 (~/hs_a2a/logs/reports/line_msg_YYYY-MM-DD.txt) → send_report.sh → LINE broadcast API でyukiに配信（マルモ公式 @090mrhbt 経由）
+
+
+### ファイル構成
+| ファイル | パス | 役割 |
+|---|---|---|
+| weekly_report.py | ~/hs_a2a/weekly_report.py | ログ集計・JAN分析・レポート生成 |
+| send_report.sh | ~/hs_a2a/send_report.sh | LINE broadcast送信 |
+| LaunchAgent | ~/Library/LaunchAgents/com.hsbuilding.weekly-report.plist | 毎週月曜9:00自動実行 |
+| レポート出力先 | ~/hs_a2a/logs/reports/ | weekly_*.json + line_msg_*.txt |
+
+### JAN 4B 分析内容
+- エリカ: 質問カテゴリ別件数、関心事トップ3、回答品質改善提案
+- マルモ: 未対応質問カテゴリ別件数、パターン追加候補（上位3件）、推奨回答案
+
+### 初回レポート結果（2026-02-20）
+- マルモ未対応: 0件（221パターンで全カバー）
+- エリカ会話: 9件（ユニークユーザー2人）
+- エリカ質問分布: AI導入相談4件、料金系3件、施設案内1件、その他2件
+
+### 今後のロードマップ
+- Level 2: JAN 4Bで未対応質問からfaq_patterns.json追加候補を自動生成→スプレッドシート承認→反映
+- Level 3: 新パターンと既存knowledgeの矛盾検出→LINE通知→修正提案
+
+### LaunchAgent 一覧（iMac 全4件）
+| Label | 対象 | スケジュール |
+|---|---|---|
+| com.hsbuilding.linebot | マルモ (FastAPI port 8000) | 常時起動 |
+| com.hsbuilding.jan | JAN 4B (llama-server port 1337) | 常時起動 |
+| com.hsbuilding.erika | エリカ (Flask port 58568) | 常時起動 |
+| com.hsbuilding.weekly-report | 週次レポート | 毎週月曜 9:00 |
+
+---
+
+## Phase 1: 週次学習レポート自動化（2026-02-20 実装）
+
+### 概要
+マルモとエリカ両方のログを統合分析し、週次でLINE通知するシステム。月額¥0。
+
+### アーキテクチャ
+[毎週月曜 9:00] LaunchAgent (com.hsbuilding.weekly-report) → weekly_report.py → マルモ未対応ログ読込 (~/hs_a2a/logs/unhandled.jsonl) → エリカ会話ログ読込 (~/erika-line-bot/chat_logs/*.jsonl) → JAN 4B (localhost:1337) でカテゴリ分類・要約生成 → JSONレポート保存 (~/hs_a2a/logs/reports/weekly_YYYY-MM-DD.json) → LINE通知文保存 (~/hs_a2a/logs/reports/line_msg_YYYY-MM-DD.txt) → send_report.sh → LINE broadcast API でyukiに配信（マルモ公式 @090mrhbt 経由）
+
+
+### ファイル構成
+| ファイル | パス | 役割 |
+|---|---|---|
+| weekly_report.py | ~/hs_a2a/weekly_report.py | ログ集計・JAN分析・レポート生成 |
+| send_report.sh | ~/hs_a2a/send_report.sh | LINE broadcast送信 |
+| LaunchAgent | ~/Library/LaunchAgents/com.hsbuilding.weekly-report.plist | 毎週月曜9:00自動実行 |
+| レポート出力先 | ~/hs_a2a/logs/reports/ | weekly_*.json + line_msg_*.txt |
+
+### JAN 4B 分析内容
+- エリカ: 質問カテゴリ別件数、関心事トップ3、回答品質改善提案
+- マルモ: 未対応質問カテゴリ別件数、パターン追加候補（上位3件）、推奨回答案
+
+### 初回レポート結果（2026-02-20）
+- マルモ未対応: 0件（221パターンで全カバー）
+- エリカ会話: 9件（ユニークユーザー2人）
+- エリカ質問分布: AI導入相談4件、料金系3件、施設案内1件、その他2件
+
+### 今後のロードマップ
+- Level 2: JAN 4Bで未対応質問からfaq_patterns.json追加候補を自動生成→スプレッドシート承認→反映
+- Level 3: 新パターンと既存knowledgeの矛盾検出→LINE通知→修正提案
+
+### LaunchAgent 一覧（iMac 全4件）
+| Label | 対象 | スケジュール |
+|---|---|---|
+| com.hsbuilding.linebot | マルモ (FastAPI port 8000) | 常時起動 |
+| com.hsbuilding.jan | JAN 4B (llama-server port 1337) | 常時起動 |
+| com.hsbuilding.erika | エリカ (Flask port 58568) | 常時起動 |
+| com.hsbuilding.weekly-report | 週次レポート | 毎週月曜 9:00 |
