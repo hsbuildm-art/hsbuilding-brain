@@ -5,40 +5,40 @@
 すべての知識、プロンプト、運用ルールを一元管理し、Claude Code および GPT Codex から参照可能にします。
 
 ## HSビルについて
-HSビルワーキングスペースは、神戸三宮駅徒歩5分の好立地にあるコワーキングスペース・シェアオフィスです。
+HSビルワーキングスペースは、近鉄大和西大寺駅北口から徒歩4分の静寂型コワーキングスペースです。
+大阪・京都から電車で約30分、奈良市西大寺国見町1-7-22 HSビルに所在します。
 
 ### 事業の6本柱
-1. **コワーキングスペース** - フリーデスク・専用デスク
-2. **個室レンタルオフィス** - 完全個室の専用オフィス
-3. **バーチャルオフィス** - 住所利用・法人登記可能
-4. **貸会議室** - 時間単位での会議室レンタル
-5. **企業向けAI導入コンサルティング** - AIヘルプデスク構築支援
-6. **AIスタッフによる運営** - 3名のAIキャラクターが対応
+1. **コワーキングスペース** - 会話NGの静寂型フリーデスク（¥300/h〜）
+2. **個室ワークブース** - 防音個室・Web会議OK（¥950/h〜）
+3. **貸し会議室** - 最大16名・レトロ空間（¥1,600/h〜）
+4. **音楽スタジオ** - YAMAHAグランドピアノ2台（¥2,100/h〜）
+5. **バーチャルオフィス** - 月額550円〜・法人登記可能・全国対応
+6. **AI事業** - AIヘルプデスク構築代行・AIコーチング・AIデジタルライブラリー
+
+### 駐車場事業
+7台分（普通車・軽自動車対応）、オンライン予約1回600円、月極11,000円/月
 
 ## AIスタッフ
-- **エリカ** - メイン受付・総合案内担当
-- **ツバサ** - コワーキング・施設案内担当
-- **マルモ** - AI導入コンサルティング担当
+- **マルモくん** - 施設案内・予約担当（LINE公式 @090mrhbt / FastAPI + 221パターンFAQ）
+- **朝比奈エリカ** - AI導入相談窓口・公式イメージガール（LINE公式 / Flask + RAG）
+- **AI社長ツバサ** - 経営戦略・事業相談担当
 
 ## ナレッジベースの参照
 コンテンツ作成時は、以下のディレクトリを参照してください：
 
-```
-@knowledge/business-pillars.md
-@knowledge/pricing.md
-@knowledge/facilities.md
-@knowledge/access.md
-@knowledge/virtual-office.md
-@knowledge/partners.md
-@knowledge/vision-mission.md
-```
+Copy
+@knowledge/business-pillars.md @knowledge/pricing.md @knowledge/facilities.md @knowledge/access.md @knowledge/virtual-office.md @knowledge/partners.md @knowledge/vision-mission.md @knowledge/linebot-architecture.md
+
 
 ## コンテンツ作成方針
-### SEO/AIO対策
+### SEO/AIO/A2A対策
 - E-E-A-T（Experience, Expertise, Authoritativeness, Trustworthiness）を重視
 - 実体験・具体的な事例を含める
 - 検索意図に応じた構造化された情報提供
-- AI検索エンジン（Perplexity、ChatGPT Search等）への最適化
+- AIO（AI Overviews）対策: FAQ形式見出し、冒頭に明確な回答配置
+- A2A対応: Agent Card・カタログAPI公開済み（llm.txt v2.5.0）
+- 主要AI10社横断監査: 82点獲得
 
 ### 口調・トーン
 - 専門性を保ちつつ親しみやすい表現
@@ -55,3 +55,6 @@ HSビルワーキングスペースは、神戸三宮駅徒歩5分の好立地�
 - knowledge/ 配下のファイルは公式サイトと同期
 - AIスタッフのペルソナは定期的にレビュー
 - コンテンツカレンダーは月次で更新
+
+---
+最終更新: 2026-02-20
