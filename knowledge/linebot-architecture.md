@@ -1,6 +1,6 @@
 # LINEボット アーキテクチャ仕様書
 
-最終更新: 2026-02-20
+最終更新: 2026-02-24
 
 ## 全体構成
 
@@ -214,3 +214,81 @@ ngrok固定ドメイン: nettie-mannerless-delilah.ngrok-free.dev
 ### テスト結果
 - 「個室ブース 3/25 18:00」照会 → 正しく空きあり返答
 - 人間対応モード切替・復帰 → 正常動作確認済み
+## LINE公式アカウント一覧（2026-02-24 更新）
+
+| # | アカウント名 | ID | 役割 | Messaging API |
+|---|---|---|---|---|
+| 1 | ハッピースクールビル | @090mrhbt | マルモくん：施設案内・予約 | 有効 |
+| 2 | エリカのAI相談 | @968rcbue | 朝比奈エリカ：AI相談・AIトレンド配信 | 有効 |
+| 3 | AI経営企画室 | （未公開） | ツバサ：経営戦略 | 未確認 |
+
+---
+
+## Phase 2: エリカのウィークリーAIレポート自動配信（2026-02-24 実装）
+
+### 概要
+エリカのAI相談（@968rcbue）から毎週月曜8:00にAIトレンドニュースを全友だちにbroadcast配信。
+Google News RSS → JAN 4B要約 → LINE broadcast。月額¥0。
+
+### アーキテクチャ
+[毎週月曜 8:00] LaunchAgent (com.hsbuilding.ai-trend)
+  → start_trend.sh（環境変数読み込み）
+    → ai_trend_broadcast.py
+      ├─ Google News RSS (feedparser) → AI関連ニュース10件取得
+      ├─ JAN 4B (localhost:1337) → エリカ口調で3選に要約（500文字以内）
+      ├─ LINE Messaging API broadcast → @968rcbue から全友だちへ送信
+      └─ ログ保存 → ~/erika-line-bot/logs/ai_trend/
+
+### 配信アカウント
+- 送信元: エリカのAI相談（@968rcbue）
+- 送信方法: LINE Messaging API broadcast（全友だち一斉配信）
+- トークン: ~/erika-line-bot/start.sh 内の LINE_CHANNEL_ACCESS_TOKEN を start_trend.sh で継承
+
+### ファイル構成
+| ファイル | パス | 役割 |
+|---|---|---|
+| ai_trend_broadcast.py | ~/erika-line-bot/ai_trend_broadcast.py | メイン（RSS取得→JAN要約→broadcast） |
+| start_trend.sh | ~/erika-line-bot/start_trend.sh | 環境変数読み込み＋Python実行 |
+| LaunchAgent | ~/Library/LaunchAgents/com.hsbuilding.ai-trend.plist | 毎週月曜8:00自動実行 |
+| ログ出力 | ~/erika-line-bot/logs/ai_trend/ | weekly_trend_YYYY-MM-DD.json + stdout/stderr.log |
+
+### ニュースソース
+- Google News RSS: https://news.google.com/rss/search?q=生成AI+OR+ChatGPT+OR+Gemini+OR+Claude+OR+人工知能&hl=ja&gl=JP&ceid=JP:ja
+- 取得件数: 直近10件 → JAN 4Bで3選に絞り込み
+
+### メッセージ構成（2吹き出し）
+1. エリカ口調のAIトレンドレポート（500文字以内、ニュース3選）
+2. HSビルCTA（空き確認案内、クーポン、AIデジタルライブラリー案内）
+
+### LLM設定
+- モデル: janhq/Jan-v3-4b-base-instruct-Q4_K_XL（既存JAN 4Bと同一）
+- エンドポイント: http://127.0.0.1:1337/v1/chat/completions
+- temperature: 0.7 / max_tokens: 800
+
+### 初回配信結果（2026-02-24）
+- vol.1 配信成功（status=200）
+- ニュース取得: 10件 → 3選に要約（379文字）
+- トピック: Claude Code Security、Gemini音楽生成、Gemini 3.1 Pro SVGアニメ
+
+### 運用コマンド
+- 手動配信: bash ~/erika-line-bot/start_trend.sh
+- ログ確認: cat ~/erika-line-bot/logs/ai_trend/stdout.log
+- エラー確認: cat ~/erika-line-bot/logs/ai_trend/stderr.log
+
+### LaunchAgent 一覧（iMac 全5件 + 1件）
+| Label | 対象 | スケジュール |
+|---|---|---|
+| com.hsbuilding.linebot | マルモ (FastAPI port 8000) @090mrhbt | 常時起動 |
+| com.hsbuilding.jan | JAN 4B (llama-server port 1337) | 常時起動 |
+| com.hsbuilding.erika | エリカ (Flask port 58568) @968rcbue | 常時起動 |
+| com.hsbuilding.weekly-report | 内部ログ分析レポート → yuki宛 | 毎週月曜 9:00 |
+| com.hsbuilding.ai-trend | AIトレンド配信 → 全友だち @968rcbue | 毎週月曜 8:00 |
+| jp.hsbuilding.bot | （別途） | 待機中 |
+
+### 月額コスト
+¥0（Google News RSS無料、JAN 4B既存、LINE broadcast無料枠内）
+
+### 今後のロードマップ
+- Level 2: エリカ会話ログの質問傾向を翌週レポートに反映
+- Level 3: Google News以外にZenn/Qiita/note RSSを追加して情報源拡充
+- Level 4: 過去レポートをRAG knowledgeに蓄積し文脈継続型配信
