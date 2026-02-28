@@ -195,3 +195,22 @@ ngrok固定ドメイン: nettie-mannerless-delilah.ngrok-free.dev
 | com.hsbuilding.jan | JAN 4B (llama-server port 1337) | 常時起動 |
 | com.hsbuilding.erika | エリカ (Flask port 58568) | 常時起動 |
 | com.hsbuilding.weekly-report | 週次レポート | 毎週月曜 9:00 |
+
+---
+
+## 2026-02-28 修正・機能追加（Phase 1完了）
+
+### booking_link_helper.py 修正（UTC/JST不整合バグ修正）
+- 修正1: JST→UTC変換（API送信時）日付境界対応済み
+- 修正2: UTC→JST変換（nearest_availableフィルタ・重複除去）
+- 修正3: LINEメッセージ内時刻のJST表示
+- 修正4: 予約フォームURL内 bookings_startDate のJST変換
+
+### line_bot_server.py 追加（人間対応モード）
+- human_mode_users.json による状態永続化
+- 管理コマンド: hs:手動 / hs:自動 / hs:手動一覧 / hs:友だち一覧 / hs:最近
+- 管理者へのPush転送 + 顧客への待機メッセージ自動返信
+
+### テスト結果
+- 「個室ブース 3/25 18:00」照会 → 正しく空きあり返答
+- 人間対応モード切替・復帰 → 正常動作確認済み
