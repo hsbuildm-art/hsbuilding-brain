@@ -124,14 +124,14 @@ ngrok固定ドメイン: nettie-mannerless-delilah.ngrok-free.dev
 マルモとエリカ両方のログを統合分析し、週次でLINE通知するシステム。月額¥0。
 
 ### アーキテクチャ
-[毎週月曜 9:00] LaunchAgent (com.hsbuilding.weekly-report) → weekly_report.py → マルモ未対応ログ読込 (~/hs_a2a/logs/unhandled.jsonl) → エリカ会話ログ読込 (~/erika-line-bot/chat_logs/*.jsonl) → JAN 4B (localhost:1337) でカテゴリ分類・要約生成 → JSONレポート保存 (~/hs_a2a/logs/reports/weekly_YYYY-MM-DD.json) → LINE通知文保存 (~/hs_a2a/logs/reports/line_msg_YYYY-MM-DD.txt) → send_report.sh → LINE broadcast API でyukiに配信（マルモ公式 @090mrhbt 経由）
+[毎週月曜 9:00] LaunchAgent (com.hsbuilding.weekly-report) → weekly_report.py → マルモ未対応ログ読込 (~/hs_a2a/logs/unhandled.jsonl) → エリカ会話ログ読込 (~/erika-line-bot/chat_logs/*.jsonl) → JAN 4B (localhost:1337) でカテゴリ分類・要約生成 → JSONレポート保存 (~/hs_a2a/logs/reports/weekly_YYYY-MM-DD.json) → LINE通知文保存 (~/hs_a2a/logs/reports/line_msg_YYYY-MM-DD.txt) → send_report.sh → LINE push API で管理者のみに配信（マルモ公式 @090mrhbt 経由）
 
 
 ### ファイル構成
 | ファイル | パス | 役割 |
 |---|---|---|
 | weekly_report.py | ~/hs_a2a/weekly_report.py | ログ集計・JAN分析・レポート生成 |
-| send_report.sh | ~/hs_a2a/send_report.sh | LINE broadcast送信 |
+| send_report.sh | ~/hs_a2a/send_report.sh | LINE push送信（管理者のみ） |
 | LaunchAgent | ~/Library/LaunchAgents/com.hsbuilding.weekly-report.plist | 毎週月曜9:00自動実行 |
 | レポート出力先 | ~/hs_a2a/logs/reports/ | weekly_*.json + line_msg_*.txt |
 
@@ -164,14 +164,14 @@ ngrok固定ドメイン: nettie-mannerless-delilah.ngrok-free.dev
 マルモとエリカ両方のログを統合分析し、週次でLINE通知するシステム。月額¥0。
 
 ### アーキテクチャ
-[毎週月曜 9:00] LaunchAgent (com.hsbuilding.weekly-report) → weekly_report.py → マルモ未対応ログ読込 (~/hs_a2a/logs/unhandled.jsonl) → エリカ会話ログ読込 (~/erika-line-bot/chat_logs/*.jsonl) → JAN 4B (localhost:1337) でカテゴリ分類・要約生成 → JSONレポート保存 (~/hs_a2a/logs/reports/weekly_YYYY-MM-DD.json) → LINE通知文保存 (~/hs_a2a/logs/reports/line_msg_YYYY-MM-DD.txt) → send_report.sh → LINE broadcast API でyukiに配信（マルモ公式 @090mrhbt 経由）
+[毎週月曜 9:00] LaunchAgent (com.hsbuilding.weekly-report) → weekly_report.py → マルモ未対応ログ読込 (~/hs_a2a/logs/unhandled.jsonl) → エリカ会話ログ読込 (~/erika-line-bot/chat_logs/*.jsonl) → JAN 4B (localhost:1337) でカテゴリ分類・要約生成 → JSONレポート保存 (~/hs_a2a/logs/reports/weekly_YYYY-MM-DD.json) → LINE通知文保存 (~/hs_a2a/logs/reports/line_msg_YYYY-MM-DD.txt) → send_report.sh → LINE push API で管理者のみに配信（マルモ公式 @090mrhbt 経由）
 
 
 ### ファイル構成
 | ファイル | パス | 役割 |
 |---|---|---|
 | weekly_report.py | ~/hs_a2a/weekly_report.py | ログ集計・JAN分析・レポート生成 |
-| send_report.sh | ~/hs_a2a/send_report.sh | LINE broadcast送信 |
+| send_report.sh | ~/hs_a2a/send_report.sh | LINE push送信（管理者のみ） |
 | LaunchAgent | ~/Library/LaunchAgents/com.hsbuilding.weekly-report.plist | 毎週月曜9:00自動実行 |
 | レポート出力先 | ~/hs_a2a/logs/reports/ | weekly_*.json + line_msg_*.txt |
 
@@ -292,3 +292,26 @@ Google News RSS → JAN 4B要約 → LINE broadcast。月額¥0。
 - Level 2: エリカ会話ログの質問傾向を翌週レポートに反映
 - Level 3: Google News以外にZenn/Qiita/note RSSを追加して情報源拡充
 - Level 4: 過去レポートをRAG knowledgeに蓄積し文脈継続型配信
+
+---
+
+## 2026-03-08 緊急修正：週次レポート broadcast → push
+
+### 問題
+send_report.sh が LINE broadcast API を使用していたため、
+マルモ(@090mrhbt)の友だち全員に内部レポートが配信されていた。
+三宅雅子氏のアカウントで誤配信を確認。数名のブロックも発生。
+
+### 修正内容
+- send_report.sh: broadcast → push API に変更
+- 送信先: 管理者（U02674d4cb973f9ffe5c81e544c80e1e5）のみ
+- エンドポイント: https://api.line.me/v2/bot/message/push
+- ペイロードに "to" フィールドを追加
+
+### 影響範囲
+- Phase 1（週次内部レポート）のみ修正
+- Phase 2（エリカのAIトレンド配信）は broadcast のまま（仕様通り・変更なし）
+
+### テスト結果
+- HTTP 200 確認済み（2026-03-08 手動テスト）
+- 管理者LINEのみに配信されることを確認
