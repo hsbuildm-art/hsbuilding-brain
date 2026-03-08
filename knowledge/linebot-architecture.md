@@ -315,3 +315,9 @@ send_report.sh が LINE broadcast API を使用していたため、
 ### テスト結果
 - HTTP 200 確認済み（2026-03-08 手動テスト）
 - 管理者LINEのみに配信されることを確認
+
+### Git認証設定（2026-03-08）
+- iMacのgit認証: `git config --global credential.helper osxkeychain` 設定済み
+- PAT（Personal Access Token）: GitHub Settings > Personal access tokens (classic) > 「iMac — repo」（有効期限なし・repo scope）
+- 以降 git push 時に認証入力は不要
+- トークン再発行が必要な場合: https://github.com/settings/tokens → 「iMac — repo」→ Regenerate token
