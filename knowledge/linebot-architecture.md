@@ -321,3 +321,12 @@ send_report.sh が LINE broadcast API を使用していたため、
 - PAT（Personal Access Token）: GitHub Settings > Personal access tokens (classic) > 「iMac — repo」（有効期限なし・repo scope）
 - 以降 git push 時に認証入力は不要
 - トークン再発行が必要な場合: https://github.com/settings/tokens → 「iMac — repo」→ Regenerate token
+
+### PAT有効期限リマインド（2026-03-08 記録）
+- 現在のPAT「iMac — repo」有効期限: **2026-04-07**
+- 期限切れ後は git push が失敗する
+- 再発行手順: https://github.com/settings/tokens → 「iMac — repo」→ Regenerate token → ghp_... をコピー
+- ターミナルで更新:
+echo "https://hsbuildm-art:ghp_新しいトークン@github.com" > ~/.git-credentials
+
+- 次回更新期限: 2026-04-07 までに再発行すること
