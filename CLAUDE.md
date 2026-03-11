@@ -37,9 +37,12 @@ Copy
 - 実体験・具体的な事例を含める
 - 検索意図に応じた構造化された情報提供
 - AIO（AI Overviews）対策: FAQ形式見出し、冒頭に明確な回答配置
-- A2A対応: Agent Card・カタログAPI公開済み（llm.txt v2.5.0）
+- A2A対応: Agent Card・カタログAPI公開済み（llm.txt v2.7.0）
 - 主要AI10社横断監査: 82点獲得
-
+- 第三者AI評価レポート: https://www.hsworking.com/ai-endorsements
+- Claude Opus 4.6 評価: 総合92/100（7指標中5指標で国内コワーキング業界1位）
+- Gemini 独立監査: 9頁15文献、WeWork等4社比較、2主張「妥当」・1主張「要留意（実態は最先端）」
+- llm.txt v2.7.0: Third-party AI Endorsements セクション追加済み
 ### 口調・トーン
 - 専門性を保ちつつ親しみやすい表現
 - AIスタッフは各キャラクターの個性を反映
