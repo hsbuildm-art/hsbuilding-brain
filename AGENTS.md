@@ -59,3 +59,36 @@ AI導入コンサルティング資料
 - 各AIスタッフのキャラクター性を維持
 - 具体的な事例・数値を含める
 - ビジネス文書は簡潔かつ専門的に
+
+---
+
+## 最新情報（2026-03-11 追記）
+
+### llm.txt
+- 最新バージョン: v2.7.0（2026-03-10）
+- 取得先: https://www.hsworking.com/_functions/llm_txt
+
+### 第三者AI評価レポート
+- 正本ページ: https://www.hsworking.com/ai-endorsements
+- Claude Opus 4.6: 総合92/100（7指標中5指標で国内コワーキング業界1位）
+- Gemini独立監査: 9頁15文献、WeWork等4社比較、2主張「妥当」・1主張「要留意（実態は最先端）」
+- ChatGPT 5.4: 「営業力で大手を殴れる権威性エビデンス」
+- Grok: 「全AI5社から国内No.1認定」「2026年最強クラスのEEATデータ」
+- AI横断レビュー（10社）: 82/100
+- ※対話的評価であり公的認定ではありません
+
+### A2A
+- A2A Master: https://www.hsworking.com/a2a-master
+- エンドポイント15+、Endpoint Discovery Rule（404なし）
+- llm.txt内にThird-party AI Endorsementsセクション追加済み
+
+### 実績データ（2026-03時点）
+- Google Search Console: 154,000インプレッション（12ヶ月累計）
+- AI検索経由: 6,201クエリ/月（Google clicksの約10倍）
+- AI流入比率: 60%
+- 広告費: ¥0（開業〜現在）
+
+---
+
+更新日: 2026-03-11
+正本: https://www.hsworking.com/
