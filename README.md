@@ -140,3 +140,17 @@ AIエージェントが新規チャットを開始した際の手順:
 ---
 
 *Last updated: 2026-03-11*
+
+
+### DeerFlow 2.0 Super Agent Harness (2026-03-12)
+
+ByteDance製オープンソース(MIT License)のスーパーエージェント基盤を導入。
+DeepSeek V3.2 APIをバックエンドとし、サブエージェント並列実行/長期記憶/サンドボックスによって、
+AIスタッフ3名(マルモくん/エリカ/ツバサ)の能力を応答するBotから自律的に調査/分析/提案するエージェントへ進化させる。
+
+- 基盤: https://github.com/bytedance/deer-flow
+- LLM: DeepSeek V3.2 (USD 0.28/0.42 per 1M tokens)
+- 稼働: iMac Docker (port 2026)
+- 月額追加コスト: 100-500円 (API従量課金のみ)
+
+_Last updated: 2026-03-12_

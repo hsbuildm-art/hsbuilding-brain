@@ -330,3 +330,62 @@ send_report.sh が LINE broadcast API を使用していたため、
 echo "https://hsbuildm-art:ghp_新しいトークン@github.com" > ~/.git-credentials
 
 - 次回更新期限: 2026-04-07 までに再発行すること
+
+
+---
+
+## Phase 4: DeerFlow 2.0 Super Agent Harness (2026-03-12)
+
+ByteDance製オープンソース(MIT License)のスーパーエージェント基盤をiMac上にDocker環境で導入。
+サブエージェントの並列実行、長期記憶、サンドボックス実行環境を備え、AIスタッフ3名の能力を強化する。
+
+- GitHub: https://github.com/bytedance/deer-flow
+- 公式サイト: https://deerflow.tech/
+- ライセンス: MIT(商用利用可/無料)
+
+### LLMバックエンド
+
+- DeepSeek V3.2 API (OpenAI互換)
+- 入力: USD 0.28 / 1Mトークン, 出力: USD 0.42 / 1Mトークン
+- HSビルの想定利用量で月額 100-500円
+- ローカルLLM (JAN 4B) はフォールバック用として併存
+
+### Docker構成 (port 2026)
+
+- deer-flow-nginx: リバースプロキシ (port 2026)
+- deer-flow-frontend: Web UI (port 3000 内部)
+- deer-flow-gateway: API Gateway (port 8001 内部)
+- deer-flow-langgraph: エージェント実行基盤 (port 2024 内部)
+
+### AIスタッフ統合計画
+
+- マルモくん: FAQ即答+JAN 4B → 複合ニーズの最適提案+パーソナライズ(長期記憶)
+- エリカ: RAG応答+定型配信 → リアルタイムリサーチ付き本格AIコンサル
+- ツバサ: 11項目スコアリング → 改善コード自動生成+競合比較+アクションプラン
+
+### バーチャルオフィス会員向け拡張
+
+DeerFlowのIMチャネル統合(Slack/Telegram)を活用し、VO会員専用チャンネルでAI経営参謀機能を提供予定。
+
+### 運用コマンド
+
+- cd ~/deer-flow && make docker-start (起動)
+- cd ~/deer-flow && make docker-stop (停止)
+
+### LaunchAgent (iMac 常駐プロセス 5+1+DeerFlow)
+
+- com.hsbuilding.linebot: マルモくん (FastAPI port 8000) 常駐
+- com.hsbuilding.jan: JAN 4B (llama-server port 1337) 常駐
+- com.hsbuilding.erika: エリカ (Flask port 58568) 常駐
+- com.hsbuilding.weekly-report: 週次レポート 月曜9:00
+- com.hsbuilding.ai-trend: AIトレンド配信 月曜8:00
+- Docker deer-flow: DeerFlow 2.0 (port 2026) 手動起動
+
+### 次フェーズ (Phase 5予定)
+
+- ツバサ diagnosis.py → DeerFlowサブエージェント接続
+- エリカ 週次配信のDeerFlow researchスキル統合
+- マルモくん DeerFlow Embedded Python Client統合
+- VO会員向け Slackチャネル提供
+
+更新日: 2026-03-12

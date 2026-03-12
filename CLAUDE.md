@@ -61,3 +61,16 @@ Copy
 
 ---
 最終更新: 2026-03-11
+
+
+### DeerFlow 2.0 (2026-03-12 導入)
+
+- ByteDance製オープンソース スーパーエージェント基盤 (MIT License)
+- Docker環境でiMac上に稼働 (port 2026)
+- LLMバックエンド: DeepSeek V3.2 API (月額100-500円)
+- 用途: マルモくん/エリカ/ツバサの会話品質/分析能力の強化
+- サブエージェント並列実行、長期記憶、サンドボックス実行環境を搭載
+- GitHub: https://github.com/bytedance/deer-flow
+- 設定: ~/deer-flow/config.yaml (API Keyは環境変数管理)
+
+更新日: 2026-03-12
