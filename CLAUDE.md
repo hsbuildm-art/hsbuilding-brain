@@ -74,3 +74,39 @@ Copy
 - 設定: ~/deer-flow/config.yaml (API Keyは環境変数管理)
 
 更新日: 2026-03-12
+
+### Phase 9: OpenClaw / コマンダー導入（2026-03-19）
+
+- OpenClaw（自律型AIエージェント基盤）をiMacにインストール
+- LLMバックエンド: OpenAI Codex OAuth / GPT-5.4
+- チャネル: Discord（HSビル司令室サーバー）
+- エージェント名: コマンダー🦌
+- 役割: HSビルAIチーム司令塔（マルモ/エリカ/ツバサの統合管理）
+- 運用方針: yukiへの報告は短く、判断のみ求める（ADHD配慮設計）
+- session-memory: 有効（会話記憶保持）
+
+### cronジョブ
+| 名前 | スケジュール | 内容 |
+|------|------------|------|
+| 朝のブリーフィング | 毎日7:00 JST | 今日の優先事項を3つ以内でDiscordに投稿 |
+
+### LaunchAgent（iMac 常駐プロセス 6+1+OpenClaw）
+| Label | 対象 | スケジュール |
+|-------|------|------------|
+| com.hsbuilding.linebot | マルモくん (FastAPI port 8000) | 常駐 |
+| com.hsbuilding.jan | JAN 4B (llama-server port 1337) | 常駐 |
+| com.hsbuilding.erika | エリカ (Flask port 58568) | 常駐 |
+| com.hsbuilding.weekly-report | 内部ログ分析レポート | 月曜9:00 |
+| com.hsbuilding.ai-trend | AIトレンド配信 | 月曜8:00 |
+| com.hsbuilding.tsubasa-audit-weekly | ツバサ週次監査 | 月曜7:30 |
+| ai.openclaw.gateway | OpenClawコマンダー (Discord) | 常駐 |
+| Docker deer-flow | DeerFlow 2.0 (port 2026) | 手動起動 |
+
+### 次フェーズ（Day 2〜6）
+- Day 2: コマンダーにHSビルの記憶（SOUL.md/MEMORY.md）を投入
+- Day 3: a2a_live_status自動取得をブリーフィングに統合
+- Day 4: マルモunhandled.jsonl監視→FAQ自動提案
+- Day 5: エリカ会話ログ→コンサル転換機会の即日検知
+- Day 6: ツバサ監査→SNS投稿提案の自動連携
+
+更新日: 2026-03-19
