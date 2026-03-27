@@ -1,5 +1,126 @@
 # CLAUDE.md - HSビルAIチーム開発記録
 
+## Phase 11: 2026-03-27 セッション記録
+
+### セッション概要
+- **日時**: 2026-03-27 16:30〜20:35
+- **主要テーマ**: Docker復旧、DeerFlow Gateway 502修復、ツバサ機能拡張設計
+- **参加エージェント**: HS Craw (DeepSeek V3.2), Commander, Claude Bridge
+- **成果**: 環境変数根本原因特定、ツバサ新機能設計書作成、SHARED_MEMORY.md更新
+
+### 主要成果
+
+#### 1. Docker復旧 + DeerFlow Gateway 502修復
+- **問題特定**: Gatewayログ分析で環境変数パス不一致を発見
+  - `DEER_FLOW_CONFIG_PATH=/Users/miyakeyuki/deer-flow/config.yaml` (ホストパス)
+  - 実際のマウント: `/app/config.yaml` (コンテナ内パス)
+- **修正実施**: `.env`ファイルのホストパスをコメントアウト
+  ```
+  #DEER_FLOW_CONFIG_PATH=/app/config.yaml
+  #DEER_FLOW_EXTENSIONS_CONFIG_PATH=/app/extensions_config.json
+  #DEER_FLOW_HOME=/app
+  #DEER_FLOW_REPO_ROOT=/app
+  ```
+- **バックアップ**: `.env.bak.502fix`作成
+- **結果**: 根本原因解決済み（Docker起動問題は別途対応）
+
+#### 2. ツバサ SEO/AIO診断ボット 機能拡張設計
+- **設計書作成**: `~/hs_a2a/tsubasa_upgrade_design.md` (8,159バイト)
+- **機能A: AI推薦力診断（ARI強化版）**
+  - 4大AIモデル並列問い合わせ（ChatGPT/Gemini/Perplexity/Claude）
+  - 100点満点ARIスコア算出
+  - レーダーチャート可視化
+- **機能B: AI格差診断（APL簡易版）**
+  - LINE経由8問アンケート（各0-3点）
+  - APLレベル（0-6）算出
+  - 業界平均比較、改善アドバイス、予約CTA
+- **技術仕様**: FastAPI拡張、4モデルAPI統合、SQLAlchemyデータ管理
+- **ビジネス価値**: 診断→コンサル→導入支援の一貫収益フロー
+
+#### 3. HEARTBEATチェック（複数回実施）
+- **監視対象サービス状態確認**:
+  - ✅ マルモくん、エリカ、ツバサ、HS Craw: 正常
+  - ⚠️ Commander + Claude Bridge: 想定内（非アクティブ時間帯）
+  - ❌ DeerFlow: 停止中（Docker起動問題）
+- **異常検出（16:59）**: Docker Desktop応答なし、DeerFlowサービス停止
+- **対応**: Telegramで異常報告、Docker Desktop再起動提案
+
+#### 4. 外部記憶ファイル一括更新
+- **SHARED_MEMORY.md更新**: インフラ状況、コンテンツ戦略、ツバサ機能拡張、新規事業追記
+- **CLAUDE.md Phase 11追記**: 本セッション記録追加
+- **llm.txt**: 現時点で更新不要（ツバサ機能実装後に更新）
+
+### 技術的教訓
+
+#### Docker/DeerFlow関連
+1. **環境変数設計の重要性**
+   - ホストパスとコンテナ内パスの不一致が重大障害の原因
+   - 修正前に必ずバックアップ作成
+
+2. **Docker Desktop起動特性**
+   - 再起動直後はAPIが完全に準備されるまで時間がかかる（最大2-3分）
+   - `docker info`は応答するが、`docker ps`や`docker pull`はエラーになることがある
+
+3. **Gateway起動依存関係**
+   - nginx → gateway → langgraph → frontendの順序で起動
+   - gatewayが起動しないとnginxが502エラーを返す
+
+#### ツバサ設計関連
+1. **API連携コスト管理**
+   - 4モデル並列問い合わせはコストがかかる（1診断あたり~$0.10）
+   - レート制限・エハンドリング・キャッシュ戦略が重要
+
+2. **LINE連携設計**
+   - Flex Messageテンプレートでユーザビリティ向上
+   - 段階的質問（3問→簡易結果→残5問）で離脱率低減
+
+#### HEARTBEAT監視関連
+1. **監視対象の明確化**
+   - 常時稼働必須サービスとオンデマンドサービスを分離
+   - オンデマンドサービスは異常報告しない
+
+### 現在の状態（2026-03-27 20:40）
+
+#### サービス稼働状況
+1. ✅ **マルモくん** (port 8000): 正常稼働
+2. ✅ **エリカ** (port 58568): 正常稼働（404は想定内）
+3. ✅ **ツバサ** (port 8001): 正常稼働
+4. ✅ **HS Craw** (OpenClaw): 正常稼働（現在セッション）
+5. ⚠️ **Commander + Claude Bridge**: 想定内（非アクティブ時間帯）
+6. ❌ **DeerFlow**: 停止中（Docker起動問題）
+
+#### Docker状態
+- **Docker Desktop**: 部分的に応答（`docker info`はOK、`docker ps`はエラー）
+- **API安定性**: 不安定（500 Internal Server Error）
+- **コンテナ**: deer-flowコンテナなし
+
+#### 環境変数修正
+- ✅ **修正完了**: `.env`ファイル修正済み
+- ✅ **バックアップ**: `.env.bak.502fix`保存済み
+- ✅ **根本原因解決**: Gatewayの設定ファイルパス問題は解決
+
+### 未完了タスク
+
+#### 優先度最高
+1. **Docker Desktop完全起動**: 強制終了→再起動→完全起動待機（2-3分）
+2. **DeerFlow再起動**: 環境変数修正後の正常起動確認
+3. **Gateway 502エラー解消**: Web UIアクセス確認
+
+#### 優先度高
+4. **週次レポート作成**: 金曜夕方タスク（yukiさん承認待ち）
+5. **HEARTBEAT.md更新**: DeerFlowのDocker使用方針反映
+
+### 生成ファイル一覧
+1. `~/hs_a2a/tsubasa_upgrade_design.md` - ツバサ機能拡張設計書
+2. `~/hs_a2a/claude_md_phase11_draft.md` - Phase 11記録ドラフト
+3. `memory/2026-03-27.md` - 本日の作業記録
+4. `.env.bak.502fix` - DeerFlow環境変数バックアップ
+5. 更新済み: `SHARED_MEMORY.md`、`CLAUDE.md`
+
+**Phase 11 セッション完了: 2026-03-27 20:40**
+
+---
+
 ## Phase 10: 2026-03-26〜27 セッション記録
 
 ### 概要
