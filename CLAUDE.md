@@ -340,3 +340,45 @@ def send_to_telegram(message):
 - 基本ドキュメント作成（SOUL.md, USER.md, AGENTS.md）
 - ワークスペース確立
 - 運用方針策定
+
+---
+
+## Phase 12: 2026-04-01 — AI Solutions v3.0 リニューアル
+
+### 概要
+AIソリューション3サービスを「講師ゼロ・AIエージェント自動運営」モデルにリニューアル。
+yuki の月間工数を1.5h以下に削減し、エリカ先生botがコーチングを完全自走する設計。
+
+### 成果物
+1. `knowledge/coaching/curriculum_v3.json` — 12週カリキュラム定義
+2. `ai-staff/erika_coaching_mode.md` — エリカ先生コーチングモード仕様
+3. `operations/n8n-workflows/WF-coaching-weekly.json` — 週次教材配信WF
+4. `operations/n8n-workflows/WF-library-monthly-publish.json` — ライブラリー月次公開WF
+5. `operations/n8n-workflows/WF-coaching-escalation.json` — エスカレーションWF
+
+### サービス体系（v3.0）
+- AIデジタルライブラリー v3.0: ¥2,980/月（AI運営率98%、yuki月15分）
+- 90日 AI格差ゼロ・プログラム セルフペース: ¥9,800/月（AI運営率95%）
+- 90日 AI格差ゼロ・プログラム アクセラレーター: ¥19,800/月（AI運営率90%）
+- 90日 AI格差ゼロ・プログラム プロダクト: ¥29,800/月（AI運営率70%）
+- AIヘルプデスク構築 Plan A: ¥298,000 / Plan B: ¥498,000 / Plan C: ¥698,000〜
+
+### 技術変更
+- エリカbot（Flask:58568）にコーチングモードを追加
+- n8n に WF3本追加（coaching-weekly, library-monthly-publish, coaching-escalation）
+- curriculum_v3.json をエリカbotのRAGソースに追加
+- Cloudflare D1 に coaching_progress テーブルを新設予定
+
+### 設計原則
+- yuki = 監修者。講師業はゼロ。
+- 理由：ADHD特性を考慮し、時間固定×対人反復タスクを排除。
+- 「講師を置かないこと自体が最高の教材」という訴求に転換。
+- HSビル59体AI月7800円運用の実績が「講師ゼロでも高品質」の証明。
+
+### 次のステップ
+- [ ] curriculum_v3.json のyuki最終承認
+- [ ] エリカbotへのコーチングモード実装
+- [ ] n8n WF のデプロイ・テスト
+- [ ] /ai-solutions ページのWix改修（秘書Claude側で原稿作成済み）
+- [ ] /ai-library-lp ページの書換え（秘書Claude側で原稿作成済み）
+- [ ] ブログ記事「AIヘルプデスク導入事例：HSビル編」公開

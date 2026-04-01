@@ -1,0 +1,250 @@
+{
+  "name": "WF-coaching-escalation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "coaching-escalation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook (Erika Escalation)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "id": "webhook-erika",
+      "webhookId": "coaching-escalation-trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $input.item.json.body || $input.item.json;\nconst message = payload.message || '';\nconst userId = payload.user_id || 'unknown';\nconst userName = payload.user_name || '受講者';\nconst confidence = payload.confidence || 1.0;\n\nlet category = 'unknown';\nlet priority = 'normal';\n\n// 分類ロジック\nif (message.includes('返金') || message.includes('キャンセル') || message.includes('解約')) {\n  category = 'refund';\n  priority = 'high';\n} else if (message.includes('クレーム') || message.includes('苦情') || message.includes('不満') || message.includes('詐欺')) {\n  category = 'complaint';\n  priority = 'high';\n} else if (payload.escalation_type === 'inactive_14days') {\n  category = 'inactive';\n  priority = 'normal';\n} else if (confidence < 0.6 || payload.escalation_type === 'low_confidence') {\n  category = 'low_confidence';\n  priority = 'low';\n} else if (message.includes('個人情報') || message.includes('住所') || message.includes('電話番号')) {\n  category = 'privacy';\n  priority = 'high';\n} else {\n  category = 'other';\n  priority = 'normal';\n}\n\nreturn { category, priority, userId, userName, message, confidence, raw: payload };"
+      },
+      "name": "Classify Escalation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300],
+      "id": "classify"
+    },
+    {
+      "parameters": {
+        "jsCode": "const { category, priority, userId, userName, message, confidence } = $input.item.json;\n\nconst priorityEmoji = { high: '🚨', normal: '⚠️', low: 'ℹ️' }[priority] || '⚠️';\nconst categoryLabel = {\n  refund: '返金・解約要求',\n  complaint: 'クレーム・苦情',\n  inactive: '14日間未活動',\n  low_confidence: 'AI回答不能（信頼度低）',\n  privacy: '個人情報関連',\n  other: 'その他エスカレーション'\n}[category] || 'その他';\n\nconst template = `${priorityEmoji} [コーチングBOT エスカレーション]\\n\\n` +\n  `分類: ${categoryLabel}\\n` +\n  `優先度: ${priority.toUpperCase()}\\n` +\n  `受講者ID: ${userId}\\n` +\n  `受講者名: ${userName}\\n` +\n  `---\\n` +\n  `内容: ${message}\\n` +\n  (confidence < 1.0 ? `信頼度: ${Math.round(confidence * 100)}%\\n` : '') +\n  `---\\n` +\n  `時刻: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}\\n\\n` +\n  `💬 このメッセージに返信すると、エリカBOTが受講者にそのまま転送します。`;\n\nreturn { telegramMessage: template, category, priority, userId, userName };"
+      },
+      "name": "Generate Telegram Template",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "id": "generate-template"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot{{ $env.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $env.TELEGRAM_CHAT_ID_YUKI }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.telegramMessage }}"
+            },
+            {
+              "name": "parse_mode",
+              "value": "HTML"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send to Yuki (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 300],
+      "id": "send-yuki"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {
+          "responseData": "lastNode",
+          "webhookSuffix": "yuki-reply",
+          "maxWaitTime": 86400
+        }
+      },
+      "name": "Wait for Yuki Reply",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1120, 300],
+      "id": "wait-reply",
+      "webhookId": "escalation-yuki-reply"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:58569/coaching/inject-reply",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "user_id",
+              "value": "={{ $json.userId }}"
+            },
+            {
+              "name": "reply_text",
+              "value": "={{ $json.reply_text }}"
+            },
+            {
+              "name": "escalation_category",
+              "value": "={{ $json.category }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Forward Reply to Erika Bot",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1340, 300],
+      "id": "forward-erika"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudflare.com/client/v4/accounts/{{ $env.CF_ACCOUNT_ID }}/d1/database/{{ $env.CF_D1_DATABASE_ID }}/query",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.CF_API_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sql",
+              "value": "INSERT INTO escalation_log (user_id, user_name, category, priority, message, yuki_reply, resolved_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+            },
+            {
+              "name": "params",
+              "value": "=[\"{{ $json.userId }}\", \"{{ $json.userName }}\", \"{{ $json.category }}\", \"{{ $json.priority }}\", \"{{ $json.message }}\", \"{{ $json.reply_text }}\", \"{{ $now.toISOString() }}\"]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Log to Cloudflare D1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1560, 300],
+      "id": "log-d1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'received', escalation_id: $execution.id }) }}"
+      },
+      "name": "Respond to Erika",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 480],
+      "id": "respond-webhook"
+    }
+  ],
+  "connections": {
+    "Webhook (Erika Escalation)": {
+      "main": [
+        [
+          {
+            "node": "Classify Escalation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond to Erika",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Escalation": {
+      "main": [
+        [
+          {
+            "node": "Generate Telegram Template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Telegram Template": {
+      "main": [
+        [
+          {
+            "node": "Send to Yuki (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Yuki (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Wait for Yuki Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Yuki Reply": {
+      "main": [
+        [
+          {
+            "node": "Forward Reply to Erika Bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward Reply to Erika Bot": {
+      "main": [
+        [
+          {
+            "node": "Log to Cloudflare D1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Tokyo",
+    "saveExecutionProgress": true
+  },
+  "tags": ["coaching", "escalation", "telegram", "yuki"],
+  "meta": {
+    "description": "エリカbotからのエスカレーション通知処理WF。返金/クレーム/未活動/回答不能を分類→Telegramテンプレート生成→yukiに送信→返信待機→エリカbotに転送→D1にログ記録。",
+    "version": "1.0",
+    "created": "2026-04-01",
+    "author": "HSビル AIインフラ",
+    "escalation_endpoint": "http://localhost:5678/webhook/coaching-escalation"
+  }
+}

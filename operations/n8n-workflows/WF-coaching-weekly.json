@@ -1,0 +1,246 @@
+{
+  "name": "WF-coaching-weekly",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 12 * * 3"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 18 * * 5"
+            }
+          ]
+        },
+        "timezone": "Asia/Tokyo"
+      },
+      "name": "Cron Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "id": "cron-trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst dayOfWeek = now.getDay(); // 0=Sun,1=Mon,3=Wed,5=Fri\nconst hour = now.getHours();\n\nlet messageType;\nif (dayOfWeek === 1 && hour === 8) {\n  messageType = 'monday_message';\n} else if (dayOfWeek === 3 && hour === 12) {\n  messageType = 'wednesday_hint';\n} else if (dayOfWeek === 5 && hour === 18) {\n  messageType = 'friday_quiz';\n} else {\n  messageType = 'monday_message'; // fallback\n}\n\n// 受講開始日からの週番号を計算（Cloudflare D1から取得想定）\nconst programStartDate = new Date($input.item.json.program_start_date || '2026-04-07');\nconst msPerWeek = 7 * 24 * 60 * 60 * 1000;\nconst weekNumber = Math.min(Math.floor((now - programStartDate) / msPerWeek) + 1, 12);\n\nreturn {\n  messageType,\n  weekNumber,\n  timestamp: now.toISOString()\n};"
+      },
+      "name": "Determine Message Type & Week",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300],
+      "id": "determine-message"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:58569/coaching/curriculum",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "week",
+              "value": "={{ $json.weekNumber }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.messageType }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Get Curriculum Content from Erika",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "id": "get-curriculum"
+    },
+    {
+      "parameters": {
+        "jsCode": "const messageType = $input.item.json.messageType;\nconst content = $input.item.json.content;\nconst weekNumber = $input.item.json.weekNumber;\n\nlet message = '';\n\nif (messageType === 'monday_message') {\n  message = content.monday_message;\n} else if (messageType === 'wednesday_hint') {\n  message = content.wednesday_hint;\n} else if (messageType === 'friday_quiz') {\n  const quiz = content.friday_quiz;\n  message = `【Week${weekNumber} 金曜クイズ】\\n\\n`;\n  quiz.forEach((q, i) => {\n    message += `Q${i+1}: ${q.question}\\n`;\n  });\n  message += '\\n↑ 答えはコメントに！わかった人は回答してみてね 💡';\n}\n\nreturn { message, messageType, weekNumber };"
+      },
+      "name": "Format Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300],
+      "id": "format-message"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.line.me/v2/bot/message/push",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $env.LINE_GROUP_ID_COACHING }}"
+            },
+            {
+              "name": "messages",
+              "value": "=[{\"type\": \"text\", \"text\": \"{{ $json.message }}\"}]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send LINE Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1120, 300],
+      "id": "send-line"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudflare.com/client/v4/accounts/{{ $env.CF_ACCOUNT_ID }}/d1/database/{{ $env.CF_D1_DATABASE_ID }}/query",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.CF_API_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sql",
+              "value": "INSERT INTO coaching_delivery_log (week_number, message_type, sent_at, status) VALUES (?, ?, ?, ?)"
+            },
+            {
+              "name": "params",
+              "value": "=[\"{{ $json.weekNumber }}\", \"{{ $json.messageType }}\", \"{{ $now.toISOString() }}\", \"success\"]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Log to Cloudflare D1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1340, 300],
+      "id": "log-d1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot{{ $env.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $env.TELEGRAM_CHAT_ID_YUKI }}"
+            },
+            {
+              "name": "text",
+              "value": "⚠️ [WF-coaching-weekly エラー]\\n\\nWeek: {{ $json.weekNumber }}\\nType: {{ $json.messageType }}\\nError: {{ $json.error.message }}\\nTime: {{ $now.toISOString() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Error Notify Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1120, 500],
+      "id": "error-telegram"
+    }
+  ],
+  "connections": {
+    "Cron Trigger": {
+      "main": [
+        [
+          {
+            "node": "Determine Message Type & Week",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determine Message Type & Week": {
+      "main": [
+        [
+          {
+            "node": "Get Curriculum Content from Erika",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Curriculum Content from Erika": {
+      "main": [
+        [
+          {
+            "node": "Format Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Message": {
+      "main": [
+        [
+          {
+            "node": "Send LINE Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send LINE Message": {
+      "main": [
+        [
+          {
+            "node": "Log to Cloudflare D1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "WF-coaching-escalation",
+    "timezone": "Asia/Tokyo"
+  },
+  "tags": ["coaching", "line", "weekly", "automation"],
+  "meta": {
+    "description": "週次コーチング教材の自動配信ワークフロー。月曜8:00→monday_message、水曜12:00→wednesday_hint、金曜18:00→friday_quizをLINEグループに自動送信し、Cloudflare D1に配信ログを記録する。",
+    "version": "1.0",
+    "created": "2026-04-01",
+    "author": "HSビル AIインフラ"
+  }
+}

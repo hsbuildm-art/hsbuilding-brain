@@ -1,0 +1,350 @@
+{
+  "name": "WF-library-monthly-publish",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 27 * *"
+            }
+          ]
+        },
+        "timezone": "Asia/Tokyo"
+      },
+      "name": "Cron Trigger (月27日 9:00 JST)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "id": "cron-monthly"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8001/generate/monthly-content",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "month",
+              "value": "={{ $now.format('YYYY-MM') }}"
+            },
+            {
+              "name": "types",
+              "value": "=[\"prompt_5\", \"recipe_2\", \"case_study_1\"]"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "name": "Request Content Generation (Tsubasa:8001)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [460, 300],
+      "id": "request-tsubasa"
+    },
+    {
+      "parameters": {
+        "jsCode": "const generatedContent = $input.item.json;\nconst month = new Date().toISOString().slice(0, 7);\n\nconst summary = `【${month}月 AIライブラリー新コンテンツ生成完了】\\n\\n` +\n  `📝 プロンプト集: ${generatedContent.prompts?.length || 0}本\\n` +\n  `🍳 レシピ: ${generatedContent.recipes?.length || 0}本\\n` +\n  `📊 ケーススタディ: ${generatedContent.case_studies?.length || 0}本\\n\\n` +\n  `内容確認後、「OK」または「修正：（修正内容）」を返信してください。\\n` +\n  `→ OKで自動公開、修正でツバサが再生成します。\\n\\n` +\n  `プレビュー: ${generatedContent.preview_url || 'http://localhost:8001/preview/latest'}`;\n\nreturn { summary, generatedContent, month, awaitingApproval: true };"
+      },
+      "name": "Format Approval Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "id": "format-approval"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot{{ $env.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $env.TELEGRAM_CHAT_ID_YUKI }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.summary }}"
+            },
+            {
+              "name": "reply_markup",
+              "value": "{\"inline_keyboard\": [[{\"text\": \"✅ OK\", \"callback_data\": \"approve_monthly\"}, {\"text\": \"✏️ 修正指示\", \"callback_data\": \"request_revision\"}]]}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send Approval Request to Yuki (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [900, 300],
+      "id": "send-telegram-approval"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {
+          "responseData": "lastNode",
+          "webhookSuffix": "library-approval"
+        }
+      },
+      "name": "Wait for Yuki Approval",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1120, 300],
+      "id": "wait-approval",
+      "webhookId": "library-monthly-approval"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "approval-check",
+              "leftValue": "={{ $json.reply_text }}",
+              "rightValue": "OK",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        }
+      },
+      "name": "Check Approval or Revision",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1340, 300],
+      "id": "check-approval"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.wixapis.com/blog/v3/posts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.WIX_API_KEY }}"
+            },
+            {
+              "name": "wix-site-id",
+              "value": "={{ $env.WIX_SITE_ID }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "post",
+              "value": "={{ JSON.stringify($json.generatedContent.wix_posts) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Publish to Wix Member Area",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1560, 180],
+      "id": "publish-wix"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.line.me/v2/bot/message/push",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $env.LINE_GROUP_ID_LIBRARY }}"
+            },
+            {
+              "name": "messages",
+              "value": "=[{\"type\": \"text\", \"text\": \"📚 今月の新コンテンツが公開されました！\\n\\nプロンプト集{{ $json.generatedContent.prompts.length }}本、レシピ{{ $json.generatedContent.recipes.length }}本、ケーススタディ{{ $json.generatedContent.case_studies.length }}本を追加しました。\\n\\n→ AIライブラリーで確認: https://hsworking.com/ai-library-member\"}]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Notify LINE Group",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1780, 180],
+      "id": "notify-line"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:58569/rag/update",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "source",
+              "value": "monthly_library"
+            },
+            {
+              "name": "content",
+              "value": "={{ JSON.stringify($json.generatedContent) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Update Erika RAG Knowledge DB",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1780, 300],
+      "id": "update-rag"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8001/revise/monthly-content",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "revision_instruction",
+              "value": "={{ $json.reply_text }}"
+            },
+            {
+              "name": "original_content",
+              "value": "={{ JSON.stringify($json.generatedContent) }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "name": "Request Revision (Tsubasa:8001)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1560, 420],
+      "id": "request-revision"
+    }
+  ],
+  "connections": {
+    "Cron Trigger (月27日 9:00 JST)": {
+      "main": [
+        [
+          {
+            "node": "Request Content Generation (Tsubasa:8001)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Content Generation (Tsubasa:8001)": {
+      "main": [
+        [
+          {
+            "node": "Format Approval Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Approval Request": {
+      "main": [
+        [
+          {
+            "node": "Send Approval Request to Yuki (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Approval Request to Yuki (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Wait for Yuki Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Yuki Approval": {
+      "main": [
+        [
+          {
+            "node": "Check Approval or Revision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Approval or Revision": {
+      "main": [
+        [
+          {
+            "node": "Publish to Wix Member Area",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Request Revision (Tsubasa:8001)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish to Wix Member Area": {
+      "main": [
+        [
+          {
+            "node": "Notify LINE Group",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Erika RAG Knowledge DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Tokyo",
+    "saveExecutionProgress": true
+  },
+  "tags": ["library", "monthly", "wix", "line", "tsubasa"],
+  "meta": {
+    "description": "月次AIライブラリーコンテンツの自動生成→yuki承認→Wix自動公開ワークフロー。毎月27日9:00にツバサへ生成依頼→Telegramで確認→OK返信で自動公開→LINEに通知→エリカRAG更新。修正返信でツバサが再生成。",
+    "version": "1.0",
+    "created": "2026-04-01",
+    "author": "HSビル AIインフラ"
+  }
+}
