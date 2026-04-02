@@ -1,0 +1,48 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "SNSのフォロワー数はAI引用に影響しますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "現時点のデータでは、フォロワー数とAI引用率に直接の相関は確認されていません。Semrushの89,000 LinkedIn URL分析では、フォロワー500人未満のクリエイターも、2,000人以上のアカウントと同等の頻度でAIに引用されていました。AIはエンゲージメント量ではなく、情報の一次性・構造・第三者からの言及密度を重視しています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "どのSNSがAI引用（LLMO対策）に最も効果的ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "グローバルデータではReddit（全AI平均で1位）とLinkedIn（3位・平均11%引用率）が突出しています。日本語圏ではnoteに一次情報ソースとしての可能性がありますが、定量データは限定的です。自社で3ヶ月間のプロンプト監視を行い、実際の引用元を確認することを推奨します。プラットフォームごとにAIの引用傾向は大きく異なるため、「最も効果的なSNS」は業界と対象AIによって変わります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI引用の効果測定にはどんなツールが必要ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "まずは手動のプロンプト監視（無料）から始められます。月1回、10プロンプトを3社のAIに投げるだけで基礎データが蓄積されます。自動化したい場合はn8n＋LLM API（月額500〜1,200円）の組み合わせが低コストで効果的です。規模が大きい場合はOtterlyAI（$29/月〜）、Peec AI（€89/月〜）、Semrush AI Toolkit（$120/月〜）などの専用ツールが選択肢になります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "LLMO対策とSEO対策は両立できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。LLMO対策の多く——構造化データ整備、結論先出し、E-E-A-T強化、一次情報の充実——はSEOにもプラスに働きます。むしろLLMO対策を行うことで、従来のSEO品質も向上するケースが多いのが実態です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "HSビルと同じLLMO実装の仕組みを自社に導入するにはどうすればいいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HSビルでは、n8n（セルフホスト）＋DeepSeek V3.2 API＋15体のAIエージェントで、AI引用監視からコンテンツ生成までを月額約500円で自動運営しています。同じ仕組みを自社に導入したい方には、90日AI格差ゼロ・プログラム（月額¥9,800〜）で段階的に実装を支援しています。より包括的にAI引用の現状診断から始めたい場合は、AI SEO/AIO監査（¥298,000）にて、自社のAI引用状況を全5社で分析し、改善ロードマップを策定します。詳細はhttps://www.hsworking.com/ai-solutionsをご確認ください。"
+      }
+    }
+  ]
+}
+</script>
