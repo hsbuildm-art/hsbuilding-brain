@@ -1,0 +1,89 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.hsworking.com/meeting-room#meetingroom",
+      "name": "HSビル・ワーキングスペース 会議室",
+      "alternateName": "HS Building Meeting Room",
+      "additionalType": "https://schema.org/EventVenue",
+      "url": "https://www.hsworking.com/meeting-room",
+      "parentOrganization": {
+        "@id": "https://www.hsworking.com/#organization"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "西大寺北町1丁目2-4 ハッピースクールビル",
+        "addressLocality": "奈良市",
+        "addressRegion": "奈良県",
+        "postalCode": "631-0817",
+        "addressCountry": "JP"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 34.6925,
+        "longitude": 135.7838
+      },
+      "telephone": "+81-742-51-7830",
+      "maximumAttendeeCapacity": 16,
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+          ],
+          "opens": "08:00",
+          "closes": "23:00"
+        }
+      ],
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "大型TVモニター",
+          "value": "完備（HDMI / ワイヤレス接続対応）"
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Wi-Fi",
+          "value": "1Gbps 高速光回線"
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "ホワイトボード",
+          "value": "完備"
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Web会議対応",
+          "value": "Zoom / Google Meet / Teams 対応"
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "最大収容人数",
+          "value": "16名"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "会議室料金プラン",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "会議室 時間利用",
+            "description": "最大16名収容の会議室を1時間単位で利用可能。大型モニター・Wi-Fi・ホワイトボード完備。Web会議対応。予約制。",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "priceCurrency": "JPY",
+              "unitCode": "HUR",
+              "unitText": "時間"
+            },
+            "url": "https://www.hsworking.com/meeting-room",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
