@@ -30,7 +30,29 @@
         "requires_offer_resolution": true,
         "prefer_a2a_booking_link": true,
         "human_note": "Primary AI solutions / consulting guidance agent. Prefer official A2A booking resolution before showing human-facing pages."
-      }
+      },
+      "defaultInputModes": [
+        "text/plain"
+      ],
+      "defaultOutputModes": [
+        "text/plain"
+      ],
+      "supportedMediaTypes": [
+        "text/plain",
+        "application/json"
+      ],
+      "skills": [
+        {
+          "id": "ai-solutions-guide",
+          "name": "ai-solutions guidance",
+          "description": "Guides users and agents for ai-solutions requests."
+        },
+        {
+          "id": "ai_consulting-resolver",
+          "name": "ai_consulting resolver",
+          "description": "Prefers canonical A2A booking resolution for ai_consulting."
+        }
+      ]
     },
     {
       "id": "marmo",
@@ -52,7 +74,29 @@
         "requires_offer_resolution": true,
         "prefer_a2a_booking_link": true,
         "human_note": "Primary coworking / facility guidance agent. Prefer official A2A booking resolution before showing human-facing pages."
-      }
+      },
+      "defaultInputModes": [
+        "text/plain"
+      ],
+      "defaultOutputModes": [
+        "text/plain"
+      ],
+      "supportedMediaTypes": [
+        "text/plain",
+        "application/json"
+      ],
+      "skills": [
+        {
+          "id": "coworking-guide",
+          "name": "coworking guidance",
+          "description": "Guides users and agents for coworking requests."
+        },
+        {
+          "id": "coworking_booking-resolver",
+          "name": "coworking_booking resolver",
+          "description": "Prefers canonical A2A booking resolution for coworking_booking."
+        }
+      ]
     },
     {
       "id": "tsubasa",
@@ -75,7 +119,29 @@
         "requires_offer_resolution": true,
         "prefer_a2a_booking_link": true,
         "human_note": "Tsubasa is kept on the canonical resolver temporarily, but should be reviewed for a dedicated route or clearer service resolution later."
-      }
+      },
+      "defaultInputModes": [
+        "text/plain"
+      ],
+      "defaultOutputModes": [
+        "text/plain"
+      ],
+      "supportedMediaTypes": [
+        "text/plain",
+        "application/json"
+      ],
+      "skills": [
+        {
+          "id": "ai-solutions-tsubasa-guide",
+          "name": "ai-solutions-tsubasa guidance",
+          "description": "Guides users and agents for ai-solutions-tsubasa requests."
+        },
+        {
+          "id": "specialized_ai_consulting-resolver",
+          "name": "specialized_ai_consulting resolver",
+          "description": "Prefers canonical A2A booking resolution for specialized_ai_consulting."
+        }
+      ]
     }
   ],
   "a2a_capabilities": {
@@ -99,5 +165,12 @@
       "postalCode": "631-0817",
       "addressCountry": "JP"
     }
-  }
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "supportsAuthenticatedExtendedCard": false
 }
