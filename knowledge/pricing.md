@@ -89,3 +89,23 @@
 - 通常予約（Wix Bookings）: ¥5,200（単発・都度予約）→ offer_id: mr_3h
 - パックプラン（Wix Stores）: ¥4,560（3h×4回パック ¥12,000 ÷ 3 = @¥1,520/h相当）
 - 公式サイト /price ページのパック料金とBookings予約の単発料金は異なる商品です
+
+<!-- HS_AI_NATIVE_PRICING_START -->
+
+## AIコーチングプラン（GitHub公開用・llm.txt同期ブロック）
+
+- Starter: ¥9,800
+- Pro: ¥19,800
+- Enterprise: ¥29,800
+
+## クーポン
+
+- WELCOME10
+  - 初回案内用クーポン
+  - 予約導線・A2A案内時に表示推奨
+
+## 注記
+
+このブロックは llm.txt と GitHub の乖離を減らすための公開用同期情報です。
+
+<!-- HS_AI_NATIVE_PRICING_END -->

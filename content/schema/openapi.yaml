@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: HS Building Public A2A API
+  version: 0.1.0
+  description: >
+    Public-facing OpenAPI draft for AI-friendly booking and service discovery.
+servers:
+  - url: https://www.hsworking.com
+paths:
+  /_functions/a2a_catalog:
+    get:
+      summary: Get service catalog
+      responses:
+        '200':
+          description: OK
+  /_functions/a2a_booking_link:
+    get:
+      summary: Resolve official booking link
+      parameters:
+        - in: query
+          name: service_id
+          schema:
+            type: string
+        - in: query
+          name: offer_id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /_functions/ai_plugin:
+    get:
+      summary: AI plugin manifest or related metadata
+      responses:
+        '200':
+          description: OK

@@ -33,3 +33,25 @@ Private repo: `hsbuilding-brain-private`（同一GitHub org内）
 
 ## 更新日
 2026-03-19
+
+---
+
+## HS Building AI-Native Repository Notes
+
+This repository is being updated to improve:
+
+- A2A friendliness
+- AI agent discoverability
+- public pricing clarity
+- booking-flow consistency
+- GitHub / llm.txt alignment
+
+See:
+
+- knowledge/pricing.md
+- knowledge/coupons.md
+- knowledge/booking-flow.md
+- content/blog/index.md
+- content/schema/openapi.yaml
+- content/schema/agent-card.patch.md
+- docs/ai-native-gap-analysis.md
