@@ -22,7 +22,15 @@
         "llmo_guidance"
       ],
       "interface": "line_messaging_api",
-      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link"
+      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link",
+      "x_hs_routing": {
+        "canonical_resolver": "https://www.hsworking.com/_functions/a2a_booking_link",
+        "routing_intent": "ai-solutions",
+        "booking_intent": "ai_consulting",
+        "requires_offer_resolution": true,
+        "prefer_a2a_booking_link": true,
+        "human_note": "Primary AI solutions / consulting guidance agent. Prefer official A2A booking resolution before showing human-facing pages."
+      }
     },
     {
       "id": "marmo",
@@ -36,7 +44,15 @@
         "availability_check"
       ],
       "interface": "line_messaging_api",
-      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link"
+      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link",
+      "x_hs_routing": {
+        "canonical_resolver": "https://www.hsworking.com/_functions/a2a_booking_link",
+        "routing_intent": "coworking",
+        "booking_intent": "coworking_booking",
+        "requires_offer_resolution": true,
+        "prefer_a2a_booking_link": true,
+        "human_note": "Primary coworking / facility guidance agent. Prefer official A2A booking resolution before showing human-facing pages."
+      }
     },
     {
       "id": "tsubasa",
@@ -51,7 +67,15 @@
         "improvement_roadmap"
       ],
       "interface": "web_form",
-      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link"
+      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link",
+      "x_hs_routing": {
+        "canonical_resolver": "https://www.hsworking.com/_functions/a2a_booking_link",
+        "routing_intent": "ai-solutions-tsubasa",
+        "booking_intent": "specialized_ai_consulting",
+        "requires_offer_resolution": true,
+        "prefer_a2a_booking_link": true,
+        "human_note": "Tsubasa is kept on the canonical resolver temporarily, but should be reviewed for a dedicated route or clearer service resolution later."
+      }
     }
   ],
   "a2a_capabilities": {
