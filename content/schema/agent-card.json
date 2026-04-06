@@ -22,7 +22,7 @@
         "llmo_guidance"
       ],
       "interface": "line_messaging_api",
-      "endpoint": "https://www.hsworking.com/ai-solutions"
+      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link"
     },
     {
       "id": "marmo",
@@ -36,7 +36,7 @@
         "availability_check"
       ],
       "interface": "line_messaging_api",
-      "endpoint": "https://www.hsworking.com/coworking"
+      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link"
     },
     {
       "id": "tsubasa",
@@ -51,7 +51,7 @@
         "improvement_roadmap"
       ],
       "interface": "web_form",
-      "endpoint": "https://www.hsworking.com/ai-solutions"
+      "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link"
     }
   ],
   "a2a_capabilities": {
