@@ -1,54 +1,68 @@
-# メタ情報: llmo-sns-effect-measurement
-**作成日:** 2026-04-02
+# メタ情報 — llmo-sns-effect-measurement
+
+## メタタイトル案
+
+### A案（質問型） 推奨
+**SNSの"いいね"はAI検索に無意味？LLMO時代のSNS効果測定と可視化法**
+- 文字数：35文字
+- CTRブースト要素：疑問形、「無意味？」の否定フック
+- KW含有：LLMO、SNS、効果測定、AI検索
+
+### B案（数字型）
+**3000万ソースで判明｜AI引用されるSNSの条件とLLMO効果測定4手法**
+- 文字数：38文字
+- CTRブースト要素：大数字、条件提示
+- KW含有：AI引用、SNS、LLMO、効果測定
+
+### C案（対比型）
+**いいね100万でもAI引用ゼロ？SNS→AI引用を可視化するLLMO効果測定術**
+- 文字数：40文字
+- CTRブースト要素：ギャップ訴求、具体数字
+- KW含有：AI引用、SNS、LLMO、効果測定
 
 ---
 
-## メタタイトル（titleタグ）3案
+## メタディスクリプション案
 
-| 案 | タイトル文 | 文字数 | 特徴 |
-|---|---|---|---|
-| A | SNSの"いいね"はAI検索に無意味？LLMO時代のSNS効果測定と可視化法 | 35字 | 疑問形＋KW3つ収録 |
-| B | LLMO対策：SNS→AI引用を可視化する効果測定の仕組み【実装データ】 | 34字 | コロン構造＋権威性 |
-| C | SNS×LLMO効果測定——AI引用される投稿と無視される投稿の違い | 31字 | 対比構造でCTR最大化 |
+### A案
+SNS発信がAI検索に引用される条件とは？Peec AI 3,000万ソース分析とHSビルのAI全5社引用実績をもとに、LLMO時代のSNS効果測定手法を実装データ付きで解説。n8n月500円の自動監視から専用ツールまで。
+- 文字数：132文字
+- KW含有：SNS発信、AI検索、AI引用、LLMO、SNS効果測定、n8n
 
-**推奨案：A**
-
-> **理由：** 疑問形（「無意味？」）はCTRを最大化する形式として実証済み（Search Console実績でCTR+15〜30%）。メインKW「LLMO」「SNS」「効果測定」の3つすべてを自然に収録しつつ35字と最適レンジ（30〜60字）内に収まる。「可視化法」という解決策の示唆がクリック動機を強化する。H1との差別化も明確。
-
----
-
-## メタディスクリプション 2案
-
-### 原案
-「SNSのいいね・フォロワーはAI検索の引用判断に影響しない。ではSNS発信はLLMO対策として無意味なのか？AI全5社から推薦を獲得したコワーキングスペースが、SNS→AI引用の因果を可視化する方法を実装データ付きで解説。」
-（122字）
+### B案 推奨
+3,000万ソース分析×HSビルAI全5社実績から判明——SNSの"いいね"はAI引用に無関係。LLMO時代のSNS効果測定4手法をn8n月500円の実装データとともに公開。今すぐ無料の手動監視から始められます。
+- 文字数：128文字
+- CTR要素：データ数字、意外性、即時行動可能
+- KW含有：AI引用、LLMO、SNS効果測定、n8n
 
 ---
 
-### 改善案A
-「いいね・フォロワーはAI検索に無視される——3,000万ソース分析が示すLLMO時代のSNS効果測定の新常識。AI全5社から推薦を獲得したHSビルが、SNS→AI引用を可視化する4つの方法を月500円の実装データ付きで解説。まず手動監視から始めよう。」
-（126字）
+## URLスラッグ案
 
-### 改善案B
-「SNS発信は本当にLLMO対策に使えるのか？Peec AI 3,000万ソース分析×HSビルのAI全5社引用実績から、SNS→AI引用を可視化するSNS効果測定の4手法を公開。n8n月500円自動監視の実装手順まで。今すぐ無料の手動監視から始められます。」
-（128字）
+### A案 推奨
+/post/llmo-sns-ai-citation-measurement
+- 英語KW：llmo, sns, ai-citation, measurement
+- 文字数：40文字
+- AI可読性：高
 
-**推奨案：B**
+### B案
+/post/sns-ai-citation-visibility-llmo-2026
+- 英語KW：sns, ai-citation, visibility, llmo
+- 文字数：45文字
 
-> **理由：** 疑問提起（「本当にLLMO対策に使えるのか？」）→根拠（Peec AI 3,000万ソース分析）→独自性（AI全5社推薦）→解決策（4手法）→コスト（月500円）→CTA（今すぐ〜）という情報導線が最も整っている。KW「LLMO」「SNS」「効果測定」すべて含み、数字が2つ（3,000万、月500円）ある。128字で適正レンジ内。
+### C案
+/post/llmo-sns-effect-measurement-ai-search
+- 英語KW：llmo, sns, effect-measurement, ai-search
+- 文字数：46文字
 
 ---
 
-## URLスラッグ 3案
+## 採用値
 
-| 案 | スラッグ | 文字数 | 特徴 |
-|---|---|---|---|
-| A | `/post/llmo-sns-ai-citation-measurement` | 38字 | KW網羅、読みやすい |
-| B | `/post/llmo-sns-effect-measurement-ai-search` | 45字 | effect-measurementを明示 |
-| C | `/post/sns-llmo-ai-citation-visibility` | 38字 | visibilityで差別化 |
+| 項目 | 採用案 | 値 |
+|---|---|---|
+| メタタイトル | A案 | SNSの"いいね"はAI検索に無意味？LLMO時代のSNS効果測定と可視化法 |
+| メタディスクリプション | B案 | 3,000万ソース分析×HSビルAI全5社実績から判明——SNSの"いいね"はAI引用に無関係。LLMO時代のSNS効果測定4手法をn8n月500円の実装データとともに公開。今すぐ無料の手動監視から始められます。 |
+| URLスラッグ | A案 | /post/llmo-sns-ai-citation-measurement |
 
-**推奨案：A**
-
-> `/post/llmo-sns-ai-citation-measurement`
->
-> **理由：** メインKW「llmo」「sns」「ai-citation」「measurement」をすべて含み、38字と簡潔。英語検索クエリ（"llmo sns measurement", "ai citation tracking"）への適合性も高い。ハイフン区切りで各単語が独立しており、Googleのクロールでも個別KWとして認識されやすい。
+*生成日：2026-04-02 蒼真ツバサ*
