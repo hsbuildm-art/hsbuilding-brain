@@ -3,3 +3,14 @@ __pycache__/
 *.log
 charts/
 venv/
+
+# AI-native backups
+.backup-*
+.omc/
+
+# local MCP build
+mcp-server/dist/
+node_modules/
+
+# OS
+.DS_Store
