@@ -1,0 +1,44 @@
+{
+  "agent_id": "marmo",
+  "name": "マルモくん",
+  "role": "施設予約・料金案内",
+  "persona_ref": "../../ai-staff/marumo/persona.md",
+  "interface": "line_messaging_api",
+  "handles_services": [
+    "coworking",
+    "workbooth",
+    "meeting_room",
+    "music_studio",
+    "classroom",
+    "virtual_office",
+    "parking_day",
+    "parking_monthly",
+    "coworking_premium",
+    "workbooth_5pack",
+    "workbooth_weekly2",
+    "classroom_monthly4",
+    "meeting_weekly1",
+    "meeting_10day",
+    "meeting_corporate",
+    "corp_fulltime",
+    "corp_business_starter",
+    "corp_premium"
+  ],
+  "booking_flow": {
+    "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link",
+    "requires_offer_resolution": true,
+    "coupon_check": true,
+    "preferred_coupon": "WELCOME10"
+  },
+  "sales_hints": [
+    "コワーキング初回利用にはWELCOME10を案内する",
+    "長期利用希望者にはパックプランを優先案内",
+    "法人問い合わせには corp_business_starter または corp_ai_coaching を提案",
+    "会議室3時間はWix Bookings単発¥5,200とパック換算¥4,560の違いを説明する",
+    "駐車場必要な法人には corp_premium を提案"
+  ],
+  "escalation": {
+    "ai_solution_inquiry": "erika",
+    "seo_llmo_inquiry": "tsubasa"
+  }
+}

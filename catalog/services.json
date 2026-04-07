@@ -1,0 +1,472 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-04-07T04:24:05.548844+00:00",
+  "booking_endpoint": "https://www.hsworking.com/_functions/a2a_booking_link",
+  "services": [
+    {
+      "service_id": "coworking",
+      "name": "コワーキング（共有席）",
+      "name_en": "Coworking (shared desk)",
+      "category": "drop_in",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "cw_1h",
+          "label": "1時間",
+          "hours": 1,
+          "price": 300,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "cw_3h",
+          "label": "3時間",
+          "hours": 3,
+          "price": 900,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "cw_8h",
+          "label": "1日（8時間）",
+          "hours": 8,
+          "price": 3000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "workbooth",
+      "name": "個室ワークブース",
+      "name_en": "Private work booth",
+      "category": "drop_in",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "wb_1h",
+          "label": "1時間",
+          "hours": 1,
+          "price": 950,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "wb_3h",
+          "label": "3時間",
+          "hours": 3,
+          "price": 2800,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "wb_8h",
+          "label": "1日（8時間）",
+          "hours": 8,
+          "price": 9800,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "meeting_room",
+      "name": "貸し会議室（16名）",
+      "name_en": "Meeting room (16 seats)",
+      "category": "drop_in",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "mr_1h",
+          "label": "1時間",
+          "hours": 1,
+          "price": 1600,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "mr_3h",
+          "label": "3時間（Wix Bookings単発）",
+          "hours": 3,
+          "price": 5200,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "mr_8h",
+          "label": "1日（8時間）",
+          "hours": 8,
+          "price": 9800,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "music_studio",
+      "name": "音楽スタジオ",
+      "name_en": "Music studio",
+      "category": "drop_in",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "ms_1h",
+          "label": "1時間",
+          "hours": 1,
+          "price": 2100,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "ms_3h",
+          "label": "3時間",
+          "hours": 3,
+          "price": 6000,
+          "currency": "JPY"
+        },
+        {
+          "offer_id": "ms_8h",
+          "label": "1日（8時間）",
+          "hours": 8,
+          "price": 12000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "classroom",
+      "name": "貸し教室",
+      "name_en": "Classroom",
+      "category": "drop_in",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "cr_1h",
+          "label": "1時間",
+          "hours": 1,
+          "price": 1200,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "virtual_office",
+      "name": "バーチャルオフィス",
+      "name_en": "Virtual office",
+      "category": "subscription",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "vo_base",
+          "label": "法人登記可プラン",
+          "period": "monthly",
+          "price_from": 550,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "coworking_premium",
+      "name": "コワーキングプレミアムプラン",
+      "name_en": "Coworking premium (unlimited)",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "cw_prem",
+          "label": "月額・1h/3h/8h無制限",
+          "period": "monthly",
+          "price": 15000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "workbooth_5pack",
+      "name": "個室ブース3時間×5回パック",
+      "name_en": "Workbooth 3h x 5 pack",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "wb_5pack",
+          "label": "3h×5回（3ヶ月有効）",
+          "sessions": 5,
+          "hours_per_session": 3,
+          "validity_months": 3,
+          "price": 12000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "workbooth_weekly2",
+      "name": "個室ブース週2プラン",
+      "name_en": "Workbooth weekly x2",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "wb_weekly2",
+          "label": "8h×月8回",
+          "period": "monthly",
+          "sessions": 8,
+          "hours_per_session": 8,
+          "price": 25000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "classroom_monthly4",
+      "name": "教室運営プラン（月4回×3時間）",
+      "name_en": "Studio/Classroom monthly 4x3h",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "cr_monthly4",
+          "label": "スタジオ or 教室 3h×月4回",
+          "period": "monthly",
+          "sessions": 4,
+          "hours_per_session": 3,
+          "price": 24000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "meeting_weekly1",
+      "name": "貸し会議室週1利用プラン",
+      "name_en": "Meeting room weekly x1",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "mr_weekly1",
+          "label": "3h×4回（3ヶ月有効）",
+          "sessions": 4,
+          "hours_per_session": 3,
+          "validity_months": 3,
+          "price": 12000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "meeting_10day",
+      "name": "貸し会議室10Dayプラン",
+      "name_en": "Meeting room 10 day pack",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": true,
+      "offers": [
+        {
+          "offer_id": "mr_10day",
+          "label": "3h×10回（3ヶ月有効）",
+          "sessions": 10,
+          "hours_per_session": 3,
+          "validity_months": 3,
+          "price": 24000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "meeting_corporate",
+      "name": "法人向け会議室サブスク",
+      "name_en": "Corporate meeting room subscription",
+      "category": "pack",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "mr_corp",
+          "label": "6h×月4回",
+          "period": "monthly",
+          "sessions": 4,
+          "hours_per_session": 6,
+          "price": 30000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "corp_fulltime",
+      "name": "フルタイム（法人月額）",
+      "name_en": "Corporate Full-time",
+      "category": "corporate",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "corp_ft",
+          "label": "月額",
+          "period": "monthly",
+          "price": 15000,
+          "currency": "JPY",
+          "includes": [
+            "coworking",
+            "web_booth_3h"
+          ]
+        }
+      ]
+    },
+    {
+      "service_id": "corp_business_starter",
+      "name": "ビジネススターター（法人月額）",
+      "name_en": "Corporate Business Starter",
+      "category": "corporate",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "corp_bs",
+          "label": "月額",
+          "period": "monthly",
+          "price": 25000,
+          "currency": "JPY",
+          "includes": [
+            "coworking",
+            "booth_5h",
+            "meeting_10h",
+            "virtual_office"
+          ]
+        }
+      ]
+    },
+    {
+      "service_id": "corp_ai_coaching",
+      "name": "AIコーチング併用（法人月額）",
+      "name_en": "Corporate AI Coaching",
+      "category": "corporate",
+      "booking_agent": "erika",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "corp_aic",
+          "label": "月額",
+          "period": "monthly",
+          "price": 29800,
+          "currency": "JPY",
+          "includes": [
+            "coworking",
+            "booth_15h",
+            "studio_1x",
+            "ai_seminar"
+          ]
+        }
+      ]
+    },
+    {
+      "service_id": "corp_premium",
+      "name": "プレミアムアクセス（法人月額）",
+      "name_en": "Corporate Premium Access",
+      "category": "corporate",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "corp_prem",
+          "label": "月額",
+          "period": "monthly",
+          "price_from": 54000,
+          "currency": "JPY",
+          "includes": [
+            "coworking",
+            "booth_20h",
+            "meeting_20h",
+            "virtual_office",
+            "parking_1"
+          ]
+        }
+      ]
+    },
+    {
+      "service_id": "ai_helpdesk",
+      "name": "HS式 AIヘルプデスク構築代行",
+      "name_en": "HS AI Helpdesk Build",
+      "category": "ai_solution",
+      "booking_agent": "erika",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "ai_hd",
+          "label": "構築代行（一括）",
+          "period": "one_time",
+          "price": 298000,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "ai_digital_library",
+      "name": "AIデジタルライブラリー",
+      "name_en": "AI Digital Library",
+      "category": "ai_solution",
+      "booking_agent": "erika",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "ai_dl",
+          "label": "月額",
+          "period": "monthly",
+          "price": 2980,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "ai_coaching_90day",
+      "name": "90日実装コーチング",
+      "name_en": "90-day AI coaching",
+      "category": "ai_solution",
+      "booking_agent": "erika",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "ai_c90",
+          "label": "要問い合わせ",
+          "period": "program",
+          "price": null,
+          "currency": "JPY",
+          "inquiry_required": true
+        }
+      ]
+    },
+    {
+      "service_id": "parking_day",
+      "name": "駐車場（オンライン予約）",
+      "name_en": "Parking (day)",
+      "category": "drop_in",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "pk_day",
+          "label": "1回",
+          "price": 600,
+          "currency": "JPY"
+        }
+      ]
+    },
+    {
+      "service_id": "parking_monthly",
+      "name": "駐車場 月極（7番）",
+      "name_en": "Parking (monthly slot 7)",
+      "category": "subscription",
+      "booking_agent": "marmo",
+      "coupon_eligible": false,
+      "offers": [
+        {
+          "offer_id": "pk_month",
+          "label": "月額",
+          "period": "monthly",
+          "price": 11000,
+          "currency": "JPY"
+        }
+      ]
+    }
+  ]
+}

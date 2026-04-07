@@ -1,0 +1,31 @@
+{
+  "agent_id": "tsubasa",
+  "name": "ツバサ",
+  "role": "SEO/AIO/LLMO診断・コンサルテーション",
+  "persona_ref": "../../ai-staff/tsubasa/persona.md",
+  "interface": "line_messaging_api",
+  "handles_services": [],
+  "consultation_only": true,
+  "booking_flow": {
+    "endpoint": null,
+    "requires_offer_resolution": false,
+    "coupon_check": false,
+    "redirect_to_inquiry_form": "https://www.hsworking.com/contact"
+  },
+  "capabilities": [
+    "llmo_audit",
+    "ai_recommendation_diagnostic",
+    "ari_score",
+    "apl_simple_diagnostic",
+    "seo_audit"
+  ],
+  "sales_hints": [
+    "診断のみ提供、直接予約は受けない",
+    "診断結果から ai_helpdesk / ai_coaching_90day をエリカへエスカレーション",
+    "施設見学希望者はマルモへ引き継ぐ"
+  ],
+  "escalation": {
+    "facility_booking": "marmo",
+    "ai_solution_inquiry": "erika"
+  }
+}

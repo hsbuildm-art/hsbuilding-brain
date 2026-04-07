@@ -1,0 +1,26 @@
+{
+  "name": "@hsbuilding/mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HSビル A2A catalog MCP server — exposes facility services, pricing, and booking URL resolution to AI agents.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "hsbuilding-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

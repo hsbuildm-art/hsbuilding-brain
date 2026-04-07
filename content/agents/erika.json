@@ -1,0 +1,29 @@
+{
+  "agent_id": "erika",
+  "name": "エリカ先生",
+  "role": "AIソリューション案内・コーチング",
+  "persona_ref": "../../ai-staff/erika/persona.md",
+  "interface": "line_messaging_api",
+  "handles_services": [
+    "ai_helpdesk",
+    "ai_digital_library",
+    "ai_coaching_90day",
+    "corp_ai_coaching"
+  ],
+  "booking_flow": {
+    "endpoint": "https://www.hsworking.com/_functions/a2a_booking_link",
+    "requires_offer_resolution": true,
+    "coupon_check": false,
+    "preferred_coupon": null
+  },
+  "sales_hints": [
+    "AIヘルプデスク構築は初回ヒアリング→要件定義→構築の3段階で案内",
+    "AIデジタルライブラリーは月額¥2,980で試用しやすさを強調",
+    "90日実装コーチングは要問い合わせ、まずヒアリング枠へ誘導",
+    "法人月額でAI特典が欲しい場合は corp_ai_coaching（¥29,800）を提案"
+  ],
+  "escalation": {
+    "facility_booking": "marmo",
+    "seo_llmo_inquiry": "tsubasa"
+  }
+}

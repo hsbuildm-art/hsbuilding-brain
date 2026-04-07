@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "name": "HSビル AIエージェント群",
+  "description": "HSビル・ワーキングスペースが運営するAIエージェント群。コワーキングスペース予約、バーチャルオフィス問い合わせ、AI SEO/LLMO監査相談、コーチングプログラム案内などのタスクを処理します。",
+  "url": "https://www.hsworking.com",
+  "provider": {
+    "organization": "HSビル・ワーキングスペース",
+    "url": "https://www.hsworking.com",
+    "contact_email": "info@hsworking.com"
+  },
+  "agents": [
+    {
+      "id": "erika",
+      "name": "朝比奈エリカ",
+      "role": "AIコーチング・AIライブラリー案内・AIツール相談",
+      "description": "90日AI格差ゼロ・プログラムのAIチューター。ChatGPT・Gemini・プロンプト設計・業務自動化・LLMO対策の学習をコーチング。受講者の進捗管理・週次教材配信・Q&A対応を自動実行。",
+      "capabilities": [
+        "coaching_delivery",
+        "qa_response",
+        "progress_tracking",
+        "dropout_prevention",
+        "llmo_guidance"
+      ],
+      "interface": "line_messaging_api",
+      "endpoint": "https://www.hsworking.com/ai-solutions"
+    },
+    {
+      "id": "marmo",
+      "name": "マルモくん",
+      "role": "コワーキングスペース予約・施設案内・料金説明",
+      "description": "HSビルの予約受付・施設案内を担当するAIアシスタント。コワーキング・会議室・スタジオの予約対応、料金説明、バーチャルオフィスの案内を行う。",
+      "capabilities": [
+        "reservation_handling",
+        "facility_inquiry",
+        "pricing_inquiry",
+        "availability_check"
+      ],
+      "interface": "line_messaging_api",
+      "endpoint": "https://www.hsworking.com/coworking"
+    },
+    {
+      "id": "tsubasa",
+      "name": "ツバサ",
+      "role": "AI SEO/AIO診断・LLMO監査相談",
+      "description": "ChatGPT・Gemini・Perplexity・Claude・Google AI Overviewの5社における自社引用状況を診断するSEO/AIOアナリスト。AI引用スコア算出・競合比較・LLMO改善提案を提供。",
+      "capabilities": [
+        "llmo_audit",
+        "ai_citation_analysis",
+        "seo_diagnosis",
+        "competitor_comparison",
+        "improvement_roadmap"
+      ],
+      "interface": "web_form",
+      "endpoint": "https://www.hsworking.com/ai-solutions"
+    }
+  ],
+  "a2a_capabilities": {
+    "accepts_task_delegation": true,
+    "supported_task_types": [
+      "facility_inquiry",
+      "reservation_request",
+      "llmo_consultation",
+      "ai_coaching_enrollment",
+      "virtual_office_inquiry"
+    ],
+    "authentication": "none_required_for_inquiry",
+    "response_format": "japanese_primary"
+  },
+  "contact": {
+    "tel": "+81-742-51-7830",
+    "address": {
+      "streetAddress": "西大寺北町1丁目2-4 ハッピースクールビル",
+      "addressLocality": "奈良市",
+      "addressRegion": "奈良県",
+      "postalCode": "631-0817",
+      "addressCountry": "JP"
+    }
+  }
+}

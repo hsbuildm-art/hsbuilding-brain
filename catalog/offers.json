@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-04-07T04:24:05.548844+00:00",
+  "coupons": [
+    {
+      "coupon_id": "WELCOME10",
+      "discount_percent": 10,
+      "eligible_categories": [
+        "drop_in",
+        "pack"
+      ],
+      "eligible_service_ids": [
+        "coworking",
+        "workbooth",
+        "meeting_room",
+        "music_studio",
+        "classroom"
+      ],
+      "description": "初回利用者向けウェルカムクーポン（10%OFF）",
+      "usage_hint": "予約導線・A2A案内時に表示推奨",
+      "first_time_only": true
+    }
+  ]
+}
