@@ -35,6 +35,36 @@
     }
   }, true);
 
+  // ─── plan_view: /workbooth のプランセクションが画面内に入ったとき計測 ─────────
+  // Wix HTML コンポーネントに id="plans-section" を付与すること
+  (function () {
+    if (window.location.pathname.indexOf('/workbooth') === -1) return;
+    var planSection = document.querySelector('#plans-section');
+    if (!planSection || !('IntersectionObserver' in window)) return;
+
+    var observed = false;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !observed) {
+          observed = true;
+          sendEvent('plan_view', { page_slug: 'workbooth' });
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(planSection);
+  })();
+
+  // ─── plan_purchase_complete: Pricing Plans 購入完了ページ到達を計測 ─────────
+  // Wix の購入完了URLパターンに合わせて PLAN_COMPLETE_PATH を調整してください
+  var PLAN_COMPLETE_PATH = '/plans/purchase-complete';
+  if (window.location.pathname.indexOf(PLAN_COMPLETE_PATH) !== -1) {
+    sendEvent('plan_purchase_complete', {
+      page_slug: 'workbooth',
+      plan_type: 'booth'
+    });
+  }
+
   // ─── application_start: バーチャルオフィス申込フォーム1ページ目の表示を計測 ──
   // 申込フォームページのURLを下記に設定してください
   var APPLY_FORM_URL_PATTERN = '/virtual-office'; // 実際のフォームURLに合わせて変更
@@ -122,7 +152,7 @@
  *
  *   data-track-cta             （必須: このボタンをトラッキング対象にする）
  *   data-slug="..."            （記事スラッグ）
- *   data-cta-name="..."        （ai_diagnosis / ai_consultation / virtual_office_apply / line_consult / private_booth_reserve）
+ *   data-cta-name="..."        （ai_diagnosis / ai_consultation / virtual_office_apply / line_consult / private_booth_reserve / plan_lane / single_lane / fixed_slot_consult）
  *   data-cta-type="..."        （primary / secondary）
  *   data-cta-position="..."    （hero / mid / bottom / faq_after）
  *   data-service-type="..."    （ai / consultation / virtual_office / private_booth）

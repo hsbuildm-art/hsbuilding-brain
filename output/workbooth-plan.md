@@ -246,9 +246,9 @@ if (/\/(checkout-complete|plans\/purchase-complete)/i.test(location.pathname)) {
 
 ---
 
-## 4. 実装手順（Wix エディタ作業順）
+## 4. 実装手順（COO承認済み優先順）
 
-### Phase 1: 接続確認（30分）
+### Phase 1: Pricing Plans + Bookings 接続確認（30分）
 
 1. Wix 管理画面 → Pricing Plans → 「個室ブース3時間×5回パック」
    - 「利用可能なサービス」に個室ワークブースが含まれているか確認
@@ -256,33 +256,36 @@ if (/\/(checkout-complete|plans\/purchase-complete)/i.test(location.pathname)) {
 2. 同様に「個室ブース週2プラン」も確認
 3. テストモードで1プラン購入 → Bookings でセッション消化できることを確認
 
-### Phase 2: プラン文言・説明文更新（20分）
+### Phase 2: /workbooth ページ編集 + プラン文言更新（60分）
 
-4. Pricing Plans → 各プランの表示名・説明文を上記仕様に更新
-5. 保存・プレビュー確認
+4. Pricing Plans → 各プランの表示名・説明文を上記仕様に更新（20分）
+5. Wix エディタで `/workbooth` を開く
+6. 既存の Pricing Plans ウィジェットセクションを単発予約ウィジェットより上に移動
+7. 移動したプランセクションに `id="plans-section"` を付与（Velo またはカスタム属性）
+8. 単発予約セクションに `id="single-section"` を付与
+9. ヒーロー直下に分岐ナビ（2ボタン）HTML を追加（Wix HTML コンポーネント）
+10. プランセクション末尾に固定枠相談CTA HTML を追加（Wix HTML コンポーネント）
+11. 表示確認（モバイル / PC 両方）
 
-### Phase 3: /workbooth ページ編集（45分）
+### Phase 3: 購入後メール更新（15分）
 
-6. Wix エディタで `/workbooth` を開く
-7. 既存の Pricing Plans ウィジェットセクションを単発予約ウィジェットより上に移動
-8. 移動したプランセクションに `id="plans-section"` を付与（Velo またはカスタム属性）
-9. 単発予約セクションに `id="single-section"` を付与
-10. ヒーロー直下に分岐ナビ（2ボタン）HTML を追加（Wix HTML コンポーネント）
-11. プランセクション末尾に固定枠相談CTA HTML を追加（Wix HTML コンポーネント）
-12. 表示確認（モバイル / PC 両方）
+12. Pricing Plans → メール設定 → 購入完了メール
+13. 「次のステップ」テキストを末尾に追記
+14. テスト送信で確認
 
-### Phase 4: 自動メール更新（15分）
+### Phase 4: 5日/10日パック追加判断・即実装（30分）【COO指示：失注再発防止優先】
 
-13. Pricing Plans → メール設定 → 購入完了メール
-14. 「次のステップ」テキストを末尾に追記
-15. テスト送信で確認
+15. Phase 1 の接続確認が完了していることを前提に着手
+16. Pricing Plans → 「+ プランを追加」
+17. 以下2プランを作成・Bookings サービスと接続:
+    - **短期集中 10回パック**: セッション型・10回・有効期間3ヶ月
+    - **短期滞在 3日パック**: セッション型・3回・有効期間1ヶ月（必要に応じて）
+18. /workbooth のプランウィジェット表示設定に追加
 
 ### Phase 5: 計測コード更新（30分）
 
-16. `cta-tracking.js` に `plan_view` スニペットを追記
-17. GitHub に push
-18. Wix 管理画面 → カスタムコード → 既存コードを更新
-19. GA4 DebugView で `plan_view`, `cta_click` が発火するか確認
+19. GitHub の最新 `cta-tracking.js`（plan_view・plan_purchase_complete 追記済み）を Wix カスタムコードに反映
+20. GA4 DebugView で `plan_view`, `cta_click` が発火するか確認
 
 ---
 
