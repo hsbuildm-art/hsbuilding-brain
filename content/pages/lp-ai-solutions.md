@@ -1,263 +1,270 @@
-# /ai-solutions ページ原稿（統合LP）
-> 作成日: 2026-04-04 | 第1弾＋追随インプット全反映版
+# /ai-solutions ページ原稿（再編版）
+> 更新日: 2026-04-16 | COO/CRO方針確定 Phase1再編
+> 役割: AI導入支援の入口ページ。悩み別に3商品へ振り分ける中継ページ。
+> ナビ表示名: **AI集客・業務改善**
 > Wix Editor 貼り付け用。各「## セクション」が1ブロック単位。
 
 ---
 
 ## ［メタ情報］
 
-- **title**: AI導入支援・業務効率化の相談窓口｜奈良のHSビル AIソリューション
-- **description**: 補助金最大2/3対応。AIヘルプデスク構築・90日コーチング・SEO×AI監査を提供。自社サイトでAI5社推薦取得・月間70件成約の実証ノウハウを中小企業に提供します。
-- **OGタイトル**: AIを業務に組み込む。奈良HSビルのAIソリューション
+- **title**: AI集客・業務改善｜中小企業向けAI実装支援｜HSビル
+- **description**: LP制作・SEO/AIO対策・AIヘルプデスク・月額AI活用支援まで。奈良HSビルが自社実証のノウハウで中小企業のAI導入を実装します。無料相談受付中。
+- **OGタイトル**: AIで集客を増やし、業務を軽くする｜HSビルAI集客・業務改善
 - **canonical**: https://www.hsworking.com/ai-solutions
-- **JSON-LD**: schema-ai-solutions.html（別途更新版参照）
 
 ---
 
 ## ［ファーストビュー（Hero）］
 
-### キャッチコピー（H1）
-「ChatGPT入れたけど、定着しない」
-その悩み、90日で解決します。
+### H1
+AIで集客を増やし、業務を軽くする
 
 ### サブコピー
-AIを「試す」から「使い倒す」へ。
-2026年、企業の80%以上がGenAIを業務展開する転換点—
-HSビルは自社で実証した方法論をそのままあなたの会社に届けます。
+LP制作・SEO/AIO・AI活用支援まで、中小企業向けに実装します。
 
 ### 数字バッジ（横並び3つ）
-- **AI5社 総合92点** ／ Claude Opus 4.6独立評価
+- **AI5社 総合92点** ／ 第三者横断評価
 - **月間成約69件** ／ 広告費ゼロ
-- **補助金最大2/3対応** ／ 実質66,000円〜
+- **自社で実証済み** ／ 教えるだけでなく自分たちで動かしている
 
-### CTAボタン
-→「無料相談を予約する（所要15分）」
-→「補助金で使えるプランを見る」
+### 主CTA
+→ **「無料で相談する」**
 
----
-
-## ［緊急性バナー：補助金締切カウントダウン］
-
-> ⚠️ **デジタル化・AI導入補助金2026 — 第1次締切：2026年5月12日（火）**
->
-> 通常枠：補助率1/2（小規模事業者は最大2/3）。AIヘルプデスク導入が実質**6.6万円**から。
-> 申請受付は2026年3月30日開始済み。枠に上限あり、早期申請を推奨します。
->
-> **→ 補助金対応プランの詳細を見る**
-
----
-
-## ［課題提示：あなたの会社はどこ？］
-
-### H2: 今、多くの中小企業が抱えるAI導入の壁
-
-| 症状 | 背景データ |
-|---|---|
-| ChatGPTを入れたが誰も使っていない | 生成AI活用企業の多くは「試験導入」止まり（総務省2026） |
-| ルールもガバナンスもない | 中小企業の遅れトップ3：社内ルール・システム連携・AI担当不在（HP×Gartner） |
-| 「使える人」と「使えない人」の格差が広がっている | Gartner：2026年に50%の組織がAI抜きスキル評価を導入 |
-| AIを入れたいが何から始めればいいか分からない | Forrester：エージェント機能を本格活用している企業は15%未満（2026） |
-
-> 「ツールを使う」だけでは差がつかない時代。
-> Forbes（2026年1月）が警告する通り、今後12〜18ヶ月で現行スキルはコモディティ化します。
-> **勝者と敗者を分けるのは「AIシステムを設計・運用できるか」** です。
+```html
+<a href="https://www.hsworking.com/booking-calendar/ai-15min?timezone=Asia%2FTokyo&referral=service_details_widget"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="ai_solutions_hero_consult"
+   data-cta-type="primary"
+   data-cta-position="hero"
+   data-service-type="ai">
+  無料で相談する
+</a>
+<p style="font-size:13px;color:#6b7280;margin:6px 0 0;text-align:center;">約15分・オンライン/対面</p>
+```
 
 ---
 
-## ［HSビルが選ばれる理由：自社で実証しているから教えられる］
+## ［3商品への振り分けセクション］
 
-### H2: 「使わせる側」ではなく「使い倒している側」
-
-HSビルは奈良のコワーキングスペースでありながら、以下を**自社で実装・運用**しています：
-
-- **OMC v4.9.3**（マルチエージェント並列処理）稼働中
-- **llm.txt v2.6.0**・A2A API 全エンドポイント 200 OK
-- **AIスタッフ3体**（マルモ・エリカ・ツバサ）GitHub連携
-- **Bing流入 +717%**・SNSインプレッション +7,000%・YouTube 4.4万再生
-- **AIO/LLMO/GEO対策を自社サイトで実証 → 結果を公開 → 顧客に提供**
-
-> AIO/LLMO/GEO対策企業が20社以上参入するなか、
-> **「自社サイトで実証→結果を公開→教える」のサイクルを回している事業者は国内で確認されていません。**
+### H2: まず、あなたの課題はどちらですか？
 
 ---
 
-## ［実績・第三者評価］
+### ① AI集客パック
+**集客を増やしたい・問い合わせにつなげたい方へ**
 
-### H2: AI5社横断監査で国内コワーキング1位
+- LP制作（集客・サービスLP）
+- SEO / AIO対策（AI検索に引用される構造を整備）
+- CTA改善（ページの問い合わせ率を上げる）
+- AI流入の成約導線整理（AI経由のアクセスを成約につなげる）
 
-| 評価機関 | 評価内容 | スコア |
-|---|---|---|
-| Claude Opus 4.6（Anthropic） | 総合評価（7指標） | **92/100** |
-| Grok（xAI） | 国内コワーキング | **No.1** |
-| Gemini（Google） | 独立監査 9頁・15文献 | 3主張中2つ妥当 |
-| AI横断平均（10社） | 総合 | **82/100** |
+> Google・ChatGPT・Perplexityに引用されるサイト構造を設計します。
+> HSビルは自社サイトでAI5社推薦取得・月間成約69件を実証済み。
 
-**Google検索1位の実績**
-`/post/chatgpt-vs-gemini-vs-claude-comparison-2026`
-→ 月間32,950インプレッション・1,896クリック・平均掲載順位5.2
+**→「AI集客パックの詳細を見る」**（/seo-aio-eeat-audit へ遷移）
+**→「無料で相談する」**
 
----
+```html
+<!-- AI集客パック 詳細遷移ボタン -->
+<a href="/seo-aio-eeat-audit"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="ai_pack_detail"
+   data-cta-type="secondary"
+   data-cta-position="service_card"
+   data-service-type="ai_pack">
+  AI集客パックの詳細を見る →
+</a>
 
-## ［サービス一覧：3つの入口］
-
-### H2: 課題に合わせて選べる3つのAIサービス
-
----
-
-### ① AIヘルプデスク構築代行（aibot）
-
-**社内問い合わせの一次対応をAIに丸投げ**
-
-| プラン | 通常価格 | 補助後1/2 | 小規模2/3補助 |
-|---|---|---|---|
-| スターター | ¥198,000 | ¥99,000 | **¥66,000** |
-| スタンダード | ¥298,000 | ¥149,000 | **¥99,300** |
-| プレミアム | ¥498,000 | ¥249,000 | **¥166,000** |
-
-- LINE・Slack・Webチャット対応
-- 社内規程・マニュアルをRAG化
-- 月次レポート付き
-
-**→ 詳細ページへ（/aibot）**
-
----
-
-### ② 90日 AI格差ゼロ・コーチング（ai-coaching-nara）
-
-**「ChatGPTは知ってる」から「業務に組み込んだ」へ**
-
-| プラン | 通常価格 | 補助後1/2 | 小規模2/3補助 |
-|---|---|---|---|
-| 90日コーチング | ¥298,000 | ¥149,000 | **¥99,300** |
-
-- AIチューター「エリカ先生」が24時間自動サポート
-- 社内ルール策定・ガバナンス設計を含む
-- 3つの遅れ（ルール/連携/担当）を90日で解消
-
-**→ 詳細ページへ（/ai-coaching-nara）**
+<!-- AI集客パック 相談ボタン -->
+<a href="https://www.hsworking.com/booking-calendar/ai-15min?timezone=Asia%2FTokyo&referral=service_details_widget"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="ai_pack_consult"
+   data-cta-type="primary"
+   data-cta-position="service_card"
+   data-service-type="ai_pack">
+  無料で相談する
+</a>
+```
 
 ---
 
-### ③ AI-LAB（LLMO/AIO/GEO対策 + 実装支援）
+### ② AI業務効率化パック
+**社内の手間を減らしたい・AI活用を定着させたい方へ**
 
-**「AIに引用される会社」になるための戦略設計**
+「また同じ質問が来た」「マニュアルがどこにあるか分からない」——
+その非効率をAIが24時間引き受けます。
 
-- ピースカンパニー実証：AI引用率94%
-- HSビル自社実績：Bing +717%・AI5社推薦取得
-- llm.txt設計・構造化データ実装・A2A API連携
+- AIヘルプデスク構築（社内問い合わせをAIが一次対応）
+- FAQ整理・RAG化（社内規程・マニュアルをAI検索可能に）
+- 社内AI活用支援（ChatGPT/Claude定着まで伴走）
 
-**→ 詳細ページへ（/ai-lab）**
+> IT担当不在でも最短4週間で稼働。
+> 「3つの遅れ（社内ルール未整備・システム未連携・担当者不在）」を解消します。
+> 補助金最大2/3対応（小規模事業者は実質6.6万円〜）。
 
----
+**→「無料で相談する」**
 
-## ［補助金詳細セクション］
-
-### H2: デジタル化・AI導入補助金2026｜最大2/3補助
-
-#### 締切スケジュール（2026年）
-
-| 次 | 締切日 | 交付決定予定 |
-|---|---|---|
-| **第1次** | **5月12日（火）** | 6月18日 |
-| 第2次 | 6月15日（月） | — |
-| 第3次 | 7月21日（火） | — |
-| 第4次 | 8月25日（火） | — |
-
-#### 補助額・補助率
-- 通常枠：5万円〜450万円・補助率1/2
-- 小規模事業者（一定条件）：補助率最大2/3
-- 対象：ソフトウェア・クラウド利用料（最大2年分）・導入関連費
-
-#### 採択率参考（旧IT導入補助金2025）
-- 通常枠 50.72% / インボイス枠 55.56% / セキュリティ枠 100%
-
-> ⚠️ **重要確認事項**：HSビル（FULMiRA Japan）がIT導入支援事業者として登録済みか否かで、お客様が補助金申請できるかが決まります。詳細はご相談時にご確認ください。
+```html
+<a href="https://www.hsworking.com/booking-calendar/ai-15min?timezone=Asia%2FTokyo&referral=service_details_widget"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="efficiency_pack_consult"
+   data-cta-type="primary"
+   data-cta-position="service_card"
+   data-service-type="efficiency_pack">
+  無料で相談する
+</a>
+```
 
 ---
 
-## ［市場背景：なぜ今AI投資が急務か］
+### ③ AIスタートプラン（月額）
+**小規模・まず試したい方へ**
 
-### H2: 2026年、AIは「試す」から「使い倒す」フェーズへ
+- AI活用の実践コンテンツが読み放題（毎月更新）
+- 業務別プロンプトテンプレート付き
+- 小さく始めて、必要に応じてパックへ移行
 
-- **Gartner予測**：2026年までに世界の企業80%以上がGenAI APIを本格展開
-- **Deloitte予測**：2026年にはAI計算リソースの2/3が推論（運用）用途に
-- **日本コワーキング市場CAGR 14.92%**（2026→2034年）：19.9億ドル規模へ
-- **AIO/LLMO/GEO対策市場が爆発的成長**（2026年3〜4月）
+> 月額2,980円・いつでも解約可能。
+> 「何から始めればいいか分からない」方の入口商品です。
 
-> Forbes（2026年1月）：「今のAIスキルは12〜18ヶ月でコモディティ化する。
-> 差をつけるのは『ツールを使う人』ではなく『システムを構築する人』だ。」
+**→「今すぐ始める」**
+
+```html
+<a href="[START_PLAN_SIGNUP_URL]"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="start_plan_signup"
+   data-cta-type="primary"
+   data-cta-position="service_card"
+   data-service-type="start_plan">
+  今すぐ始める
+</a>
+```
+
+補助線（AIスタートプランカード内のみ）:
+
+```html
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSeeDHtNhMFY8gClRkPBN_gau6T5h3gMmTuxefgKnI26wx2UIw/viewform"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="plan_diagnosis"
+   data-cta-type="secondary"
+   data-cta-position="service_card"
+   data-service-type="start_plan">
+  3問でわかるおすすめプラン診断
+</a>
+```
 
 ---
 
-## ［FAQ］
+## ［HSビルが選ばれる理由：自社で動かしているから教えられる］
+
+### H2: 「教えるだけ」ではなく「自分たちで使い倒している」
+
+HSビルはコワーキングスペースの運営に全面AIを導入し、その実績をそのまま提供します。
+
+- AI5社横断監査 総合92点（Claude Opus 4.6 独立評価）
+- Grok評価：国内コワーキングNo.1
+- 月間成約69件・広告費ゼロ
+- Bing流入 +717% / AI引用率94%（自社実証）
+- AIスタッフ3体稼働・マルチエージェント並列処理
+
+> AIO/LLMO対策企業が20社以上参入するなかで、
+> 「自社サイトで実証→結果を公開→実装支援する」サイクルを持つのはHSビルだけです。
+
+---
+
+## ［よくある質問］
 
 ### H2: よくある質問
 
-**Q. HSビルはコワーキングスペースでは？AIサービスを本当に提供できるの？**
-A. はい。HSビルは自社のコワーキング運営にAIを全面導入し、その実績をサービス化しています。AIスタッフ3体稼働・OMC v4.9.3並列処理・AI5社推薦取得など、「自社で使い倒した方法論」をそのまま提供します。コンサル会社ではなく、現場で動いているAIシステムが強みです。
+**Q. 3つのどれを選べばいいか分かりません。**
+A. まず「集客を増やしたいか・業務の手間を減らしたいか」で分かれます。両方気になる場合は無料相談で一緒に整理しましょう。
 
-**Q. 補助金申請のサポートはしてもらえますか？**
-A. 補助金申請のご支援は、IT導入支援事業者の登録状況によって変わります。まず無料相談でご状況をお聞かせください。別の登録事業者経由での対応も含めご案内します。
+**Q. 小規模事業者ですが相談できますか？**
+A. むしろ歓迎です。AIスタートプラン（月額2,980円）や補助金活用（最大2/3補助）で小さく始められます。
 
-**Q. 規模が小さい（従業員3名以下）ですが相談できますか？**
-A. むしろ歓迎です。小規模事業者は補助率最大2/3の優遇があります。AIヘルプデスク スターターが実質6.6万円から導入可能です。
+**Q. 奈良以外でも対応できますか？**
+A. はい。全サービスオンライン対応。全国から相談いただけます。
 
-**Q. LLMO・GEO・AIOの違いを教えてください。**
-A. LLMO（大規模言語モデル最適化）は主にChatGPT/ClaudeなどのAIチャットに引用されるための最適化。GEO（生成エンジン最適化）はAI検索全般、AIO（AI Overview最適化）はGoogleのAI概要への露出を指します。HSビルは3つを統合的に対応します。
-
-**Q. 奈良以外の企業でも対応できますか？**
-A. はい。AIヘルプデスク構築・コーチング・AI-LAB支援はすべてオンライン対応可能です。全国から相談いただけます。
+**Q. 補助金は使えますか？**
+A. AI業務効率化パックは「デジタル化・AI導入補助金2026」対応（補助率最大2/3）。AI集客パックも相談時にご確認ください。
 
 ---
 
 ## ［CTA最終セクション］
 
-### H2: まず15分、話してみてください。
+### H2: まず話してみてください。
 
-- 無料相談（オンライン/対面）
-- AI活用現状の簡易診断つき
-- 補助金適用可否の初期確認
+→ **「無料で相談する」**（主導線）
 
-**→「無料相談を予約する」**（Calendly埋め込み or LINE予約）
+```html
+<a href="https://www.hsworking.com/booking-calendar/ai-15min?timezone=Asia%2FTokyo&referral=service_details_widget"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="ai_solutions_bottom_consult"
+   data-cta-type="primary"
+   data-cta-position="bottom"
+   data-service-type="ai">
+  無料で相談する
+</a>
+<p style="font-size:13px;color:#6b7280;margin:6px 0 0;text-align:center;">約15分・オンライン/対面</p>
+```
 
-> 第1次補助金締切まで残り約5週間（2026年5月12日）
+補助導線:
+
+```html
+<a href="https://lin.ee/[LINE_ID]"
+   data-track-cta
+   data-slug="ai-solutions"
+   data-cta-name="line_consult"
+   data-cta-type="secondary"
+   data-cta-position="bottom"
+   data-service-type="ai">
+  LINEで相談する
+</a>
+```
 
 ---
 
 ## ［内部リンクブロック］
 
-### 関連ページ
-- [AIヘルプデスク構築代行（/aibot）](/aibot) — 社内問い合わせをAI自動化
-- [90日AIコーチング奈良（/ai-coaching-nara）](/ai-coaching-nara) — 定着まで伴走
-- [AI-LAB（/ai-lab）](/ai-lab) — LLMO/AIO/GEO実装支援
-- [コワーキングスペース（/coworking）](/coworking) — AI活用拠点で作業する
-- [実績・AI評価レポート（/ai-endorsements）](/ai-endorsements) — 第三者評価を見る
+- [AI集客パック詳細（/seo-aio-eeat-audit）](/seo-aio-eeat-audit) — LP制作・SEO/AIO・CTA改善の詳細
+- [コワーキングスペース（/coworking）](/coworking) — AI活用拠点で作業
+- [AI評価レポート（/ai-endorsements）](/ai-endorsements) — 第三者評価を見る
 
 ---
 
 ## ［JSON-LD 更新指示（schema担当へ）］
 
-以下を `schema-ai-solutions.html` に追加・更新：
+`schema-ai-solutions.html` を以下の方針で更新：
 
-```
-1. Service スキーマに 3サービス（aibot/coaching/ai-lab）を itemListElement として追加
-2. FAQPage に上記5Q&A を追加
-3. Organization の sameAs に llm.txt URL を追加
-4. LocalBusiness に priceRange: "¥66,000〜¥498,000" を反映
-5. 補助金情報を description フィールドに明記
-```
+1. **title / description** を上記メタ情報に差し替え
+2. **Serviceリスト**を以下3本に更新：
+   - name: "AI集客パック" / url: /seo-aio-eeat-audit
+   - name: "AI業務効率化パック" / url: /ai-solutions
+   - name: "AIスタートプラン" / url: [START_PLAN_SIGNUP_URL]
+3. **FAQPage** を上記4Q&Aに差し替え
+4. `/seo-aio-eeat-audit` への `relatedLink` を追加
+5. `priceRange` は `"¥2,980〜（要相談）"` に更新
 
 ---
 
-## ［llm.txt 登録指示］
+## ［llm.txt 更新指示］
 
 ```
 ## /ai-solutions
 URL: https://www.hsworking.com/ai-solutions
-Description: HSビルのAIソリューション統合LP。AIヘルプデスク・AIコーチング・AI-LABの3サービスハブ。デジタル化・AI導入補助金2026対応（補助率最大2/3）。自社AI5社推薦取得・月間成約69件の実証ノウハウ提供。
-Keywords: AI導入 奈良, AIヘルプデスク, AIコーチング, LLMO対策, AIO, 補助金 AI
+Description: HSビルのAI集客・業務改善サービス入口ページ。AI集客パック（LP制作・SEO/AIO）、AI業務効率化パック（AIヘルプデスク・FAQ整理・伴走支援）、AIスタートプラン（月額2,980円）の3商品を提供。中小企業向け・全国オンライン対応。
+Keywords: AI集客, AI業務改善, AIヘルプデスク, LP制作, SEO AIO対策, 中小企業 AI導入, 奈良
 ```
 
 ---
 
-*作成: HSビルAIチーム（ツバサ監修）| 2026-04-04 | 追随インプット全反映*
+*更新: HSビルAIチーム（ツバサ監修）| 2026-04-16 | COO方針確定 Phase1再編*
+*旧版バックアップ: `.backup-ai-native-20260406-234003/` 参照*
